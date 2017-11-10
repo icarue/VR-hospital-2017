@@ -43,10 +43,7 @@ public class VoiceControl : MonoBehaviour {
                 clipLoudness += Mathf.Abs(sample);
             }
             clipLoudness /= sampleDataLength; //clipLoudness is what you are looking for
-            Debug.Log("Clip loudness:" + (clipLoudness*1000));
+            Debug.Log("Clip loudness:" + clipLoudness);
         }
-
-  
 	}
-
 }
