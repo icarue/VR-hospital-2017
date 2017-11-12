@@ -5,9 +5,9 @@ using UnityEngine;
 public class FlashingLight : MonoBehaviour {
 
 	float lightsOnDur = 0.05f;
-	float lightsOffDur = 2f;
+	float lightsOffDur = 1f;
 	bool isLightOn = false;
-	public float timer;
+	float timer;
 	Light lightBulb;
 
 	void Start() {
