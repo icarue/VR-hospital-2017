@@ -28,7 +28,7 @@ public class FlashingLight : MonoBehaviour {
 
 	void setTimer() {
 		//This timer has to change depening if it's lights on/off
-		lightsOffDur = Random.Range(0.05f, 2f);
+		lightsOffDur = Random.Range(0.01f, 1f);
 		lightsOnDur = Random.Range (0.05f, 0.5f);
 	}
 
