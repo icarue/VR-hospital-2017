@@ -52,7 +52,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -68,7 +67,6 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -83,7 +81,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374004086519722}
-  m_Mesh: {fileID: 4300000, guid: 7b572cd2e1d14b940bdc489bc5934b84, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 737f373ca7cbd4824b95c3ec01cff99c, type: 3}
 --- !u!95 &95881210557048558
 Animator:
   serializedVersion: 3
@@ -93,7 +91,7 @@ Animator:
   m_GameObject: {fileID: 1374004086519722}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7b572cd2e1d14b940bdc489bc5934b84, type: 3}
-  m_Controller: {fileID: 9100000, guid: b4791ba694f2040438dadf7392104298, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5bead130d0fe1490bb0e43c3270fd36a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -109,8 +107,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1374004086519722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20eff76899987440908f11095dc00ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 43fa6a6fc7f5e4f58a7d4b49f8852acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 95881210557048558}
-  speed: 1
+  anim: {fileID: 0}
+  speed: 0

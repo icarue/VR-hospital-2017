@@ -21,13 +21,14 @@ public class Curtains : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            anim.Play("curtainOpen");
+            Debug.Log("Press down");
+            anim.Play("curtainOpening");
 
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            anim.Play("curtainClose");
+            anim.Play("curtainClosing");
         }
     }
 }
