@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9ea6873afd949c783fe441733bb22c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   rotationAngle: 45
   rotationalSpeed: 10
 --- !u!4 &215015550
@@ -491,7 +491,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Mesh
-      value: 
+      value:
       objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 100000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Name
@@ -700,7 +700,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Mesh
-      value: 
+      value:
       objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 400000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_LocalScale.x
@@ -800,7 +800,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Mesh
-      value: 
+      value:
       objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 400000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_LocalScale.x
@@ -1674,8 +1674,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c120424d15f24492946baa41f1f7252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &1407589179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,8 +1685,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cddb5c38cb044a139a81beb1db3ba98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   axes: 1
   sensitivityX: 10
   sensitivityY: 10
@@ -1822,7 +1822,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: dc1e0292b0bb94a758f350e2347a9584, type: 3}
       propertyPath: m_Mesh
-      value: 
+      value:
       objectReference: {fileID: 4300000, guid: 737f373ca7cbd4824b95c3ec01cff99c, type: 3}
     m_RemovedComponents:
     - {fileID: 0}
@@ -2028,7 +2028,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Mesh
-      value: 
+      value:
       objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 100000, guid: ac933932638e44d398b6c0e0a04c7ef1, type: 3}
       propertyPath: m_Name
