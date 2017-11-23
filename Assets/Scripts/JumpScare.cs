@@ -48,7 +48,7 @@ public class JumpScare : MonoBehaviour {
         Invoke("blackScreen", 1);
 
         //Add Audio
-        crawler.GetComponent<AudioSource>().Play(0);
+        crawler.GetComponent<AudioSource>().Play();
     }
 
     // Update is called once per frame
