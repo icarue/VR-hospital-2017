@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using EZCameraShake;
 
 public class JumpScare : MonoBehaviour {
 
@@ -14,6 +16,10 @@ public class JumpScare : MonoBehaviour {
 
     public float speedOfJumpScare;
 
+    public float Magnitude = 10f;
+    public float Roughness = 5;
+    public float FadeInTime = 0.1f;
+
     private void Start()
     {
         spawnLocation = new Vector3(0, -9, 2.86f);
@@ -23,8 +29,6 @@ public class JumpScare : MonoBehaviour {
         destination.y = -4.8f;
 
         crawler = Resources.Load("crawler") as GameObject;
-
-        startJumpScare();
     }
 
     public void startJumpScare()
@@ -33,14 +37,48 @@ public class JumpScare : MonoBehaviour {
         crawler.transform.localPosition = spawnLocation;
         crawler.transform.localRotation = Quaternion.Euler(spawnRotation);
         endGame = true;
+
+        //Shake the screen
+        shakeEnemy();
+
+        //Disable the Mouse look
+        gameObject.GetComponent<SmoothMouseLook>().enabled = false;
+
+        //Black Screen
+        Invoke("blackScreen", 1);
+
+        //Add Audio
+        crawler.GetComponent<AudioSource>().Play(0);
     }
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            startJumpScare();
+        }
+
         if (endGame)
         {
             float step = speedOfJumpScare * Time.deltaTime;
             crawler.transform.localPosition = Vector3.MoveTowards(crawler.transform.localPosition, destination, step);
+            if (crawler.transform.localPosition == destination)
+            {
+                endGame = false;
+                
+            }
+            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.Euler(Vector3.zero), step);
         }
-	}
+
+    }
+
+    void blackScreen()
+    {
+        GameObject.Find("GameOverScreen").GetComponent<Image>().color = new Color(0, 0, 0, 255);
+    }
+
+    void shakeEnemy()
+    {
+        CameraShaker.Instance.StartShake(Magnitude, Roughness, FadeInTime);
+    }
 }
