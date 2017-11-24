@@ -53,11 +53,6 @@ public class JumpScare : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            startJumpScare();
-        }
-
         if (endGame)
         {
             float step = speedOfJumpScare * Time.deltaTime;
