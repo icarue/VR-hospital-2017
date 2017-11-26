@@ -36,10 +36,10 @@ public class BathroomMonster : MonoBehaviour {
         doorOpenDuration = Random.Range(3, 5);
 
         //Seconds for user to close the door
-        secondsBeforeUserLose = Random.Range(5,8);
+        secondsBeforeUserLose = Random.Range(10,15);
 
         //Seconds before jump scare starts
-        secondsBeforeJumpScareStarts = Random.Range(5,10);
+        secondsBeforeJumpScareStarts = Random.Range(5,10)+doorOpenDuration;
     }
 
     // Use this for initialization
@@ -82,13 +82,15 @@ public class BathroomMonster : MonoBehaviour {
         if (secondsBeforeUserLose < 0)
         {
             //User loses
+            door.setUserLost();
             currentStage = MonsterStage.UserFailed;
             door.setDoorAngleWithDuration(door.loseDoorAngle, doorOpenDuration);
         }
 
         //Check if Door is closed
-        if (doorHinge.transform.rotation.y == 0)
+        if ((int)doorHinge.transform.rotation.eulerAngles.y == 0)
         {
+            Debug.Log(secondsBeforeUserLose);
             //User able to close the door
             currentStage = MonsterStage.DoorClosed;
         }

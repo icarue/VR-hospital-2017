@@ -11,19 +11,17 @@ public class doorOpen : MonoBehaviour {
     public float openDoorAngle;
     public float percentageChanceToGlitchDoor;
     public bool canInteractWithDoor { get; private set; }
-    float timeTakenToCloseDoor = 1;
+    bool userStillPlaying = true;
     public float loseDoorAngle { get; private set; }
 
     private void Awake()
     {
         loseDoorAngle = openDoorAngle + Random.Range(6, 10);
-
-        if (percentageChanceToGlitchDoor > 1)
-        {
-            percentageChanceToGlitchDoor /= 100;
-        }
     }
 
+    public void setUserLost() {
+        userStillPlaying = false;
+    }
 
     /*                  Scripted Events                         */
     //Bathroom monster activated - first time door open
@@ -39,34 +37,33 @@ public class doorOpen : MonoBehaviour {
     //When user interacts with the door and tries to close it
     public void tryToCloseTheDoor() {
         float change = Random.Range(0, 100);
-        Debug.Log(change);
-        if (change > percentageChanceToGlitchDoor)
+        if (change < percentageChanceToGlitchDoor)
         {
+            //Unable to close door
             glitchToCertainAngle();
         } else
         {
-            setDoorAngleWithDuration(closedDoorAngle, timeTakenToCloseDoor);
+            setDoorAngleWithDuration(closedDoorAngle, Random.Range(2,4));
         }
     }
 
     void glitchToCertainAngle()
     {
         float almostClosedAngle = Random.Range(1, 10);
-        setDoorAngleWithDuration(almostClosedAngle,timeTakenToCloseDoor);
-        Invoke("openDoorToSetAngle", timeTakenToCloseDoor);
+        float duration = Random.Range(2, 4);
+        setDoorAngleWithDuration(almostClosedAngle,duration);
+        Invoke("openDoorToSetAngle", duration);
     }
 
-
-    void openDoorToSetAngle()
-    {
-        setDoorAngleWithDuration(openDoorAngle, 1);
+    void openDoorToSetAngle() {
+        setDoorAngleWithDuration(openDoorAngle,Random.Range(1,3));
     }
 
     private void Update()
     {
         int angle = (int)this.transform.rotation.eulerAngles.y;
 
-        if (angle == (int)openDoorAngle) {
+        if (angle == (int)openDoorAngle && userStillPlaying) {
             canInteractWithDoor = true;
         }
     }
