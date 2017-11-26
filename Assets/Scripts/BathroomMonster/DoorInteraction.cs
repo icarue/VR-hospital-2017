@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorInteraction : doorOpen {
+public class DoorInteraction : MonoBehaviour {
+
+    doorOpen door;
+
+    private void Awake()
+    {
+        door = GameObject.Find("DoorHinge").GetComponent<doorOpen>();
+    }
 
     private void OnMouseDown()
     {
-        if (canInteractWithDoor)
+        if (door.canInteractWithDoor)
         {
-            tryToCloseTheDoor();
+            door.tryToCloseTheDoor();
         }
     }
 }

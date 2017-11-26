@@ -656,8 +656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9ea6873afd949c783fe441733bb22c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAngle: 45
-  rotationalSpeed: 10
+  openDoorAngle: 41.8
+  percentageChanceToGlitchDoor: 90
 --- !u!4 &215015550
 Transform:
   m_ObjectHideFlags: 0
@@ -1322,7 +1322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d647a0964e92214bb4a987be084ef09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorHinge: {fileID: 215015548}
 --- !u!4 &440151179 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 145078e6864334551babb34dcbf3ba0c, type: 3}
@@ -5195,7 +5194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d647a0964e92214bb4a987be084ef09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorHinge: {fileID: 215015548}
 --- !u!1 &2012661987
 GameObject:
   m_ObjectHideFlags: 0

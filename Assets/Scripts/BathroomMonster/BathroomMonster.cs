@@ -20,11 +20,7 @@ public class BathroomMonster : MonoBehaviour {
     doorOpen door;
 
     //Open Door
-    public float doorAngle;
     float doorOpenDuration;
-
-    //Open more Door
-    public float loseDoorAngle;
 
     //Seconds for user to close the door
     float secondsBeforeUserLose;
@@ -33,7 +29,7 @@ public class BathroomMonster : MonoBehaviour {
     float secondsBeforeJumpScareStarts;
 
     void Awake()
-    { 
+    {
         //Door
         doorHinge = GameObject.Find("DoorHinge");
         door = doorHinge.GetComponent<doorOpen>();
@@ -48,7 +44,7 @@ public class BathroomMonster : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        door.setAngleDur(doorAngle, doorOpenDuration);
+        door.setDoorAngleWithDuration(door.openDoorAngle, doorOpenDuration);
 	}
 	
 	// Update is called once per frame
@@ -73,8 +69,7 @@ public class BathroomMonster : MonoBehaviour {
     
     void finishedOpenDoor()
     {
-        int currentAngle = (int)doorHinge.transform.localRotation.eulerAngles.y;
-        if (currentAngle == (int)doorAngle)
+        if (door.canInteractWithDoor)
         {
             currentStage = MonsterStage.DoorCloseChance;
         }
@@ -86,13 +81,15 @@ public class BathroomMonster : MonoBehaviour {
         secondsBeforeUserLose -= Time.deltaTime;
         if (secondsBeforeUserLose < 0)
         {
+            //User loses
             currentStage = MonsterStage.UserFailed;
-            door.setAngleDur(loseDoorAngle, doorOpenDuration);
+            door.setDoorAngleWithDuration(door.loseDoorAngle, doorOpenDuration);
         }
 
         //Check if Door is closed
         if (doorHinge.transform.rotation.y == 0)
         {
+            //User able to close the door
             currentStage = MonsterStage.DoorClosed;
         }
     }
