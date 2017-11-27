@@ -7,10 +7,12 @@ public class Curtains : MonoBehaviour {
 
     public Animator anim;
     public float speed;
+    public bool isCurtainOpen { get; private set; }
 
     // Use this for initialization
     void Start()
     {
+        isCurtainOpen = false;
         anim = GetComponent<Animator>();
 
         anim.speed = speed;
@@ -23,12 +25,14 @@ public class Curtains : MonoBehaviour {
         {
             Debug.Log("Press down");
             anim.Play("curtainOpening");
+            isCurtainOpen = true;
 
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             anim.Play("curtainClosing");
+            isCurtainOpen = false;
         }
     }
 }
