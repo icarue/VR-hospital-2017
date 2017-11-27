@@ -13,8 +13,9 @@ public class DoorInteraction : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        if (door.canInteractWithDoor)
+        if (door.canInteractWithDoor && door.userStillPlaying)
         {
+            Debug.Log("CLICKED");
             //When completed, can't click this.
             door.tryToCloseTheDoor();
         }

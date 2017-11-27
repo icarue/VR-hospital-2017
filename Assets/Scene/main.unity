@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openDoorAngle: 41.8
-  percentageChanceToGlitchDoor: 40
+  glitchChance: 1
 --- !u!4 &215015550
 Transform:
   m_ObjectHideFlags: 0
@@ -773,52 +773,47 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1709135860}
     m_Modifications:
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.5468245
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalPosition.y
       value: 18.28
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalPosition.z
       value: 3.358961
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
+    - target: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114655609252120514, guid: 7883eb0572c9b3247b23098ccb1d1e53,
+    - target: {fileID: 114244371685784328, guid: 7883eb0572c9b3247b23098ccb1d1e53,
         type: 2}
-      propertyPath: jumpScareObj
-      value: 
-      objectReference: {fileID: 1173616970}
-    - target: {fileID: 114655609252120514, guid: 7883eb0572c9b3247b23098ccb1d1e53,
+      propertyPath: minSecondsForUserToCloseDoor
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244371685784328, guid: 7883eb0572c9b3247b23098ccb1d1e53,
         type: 2}
-      propertyPath: doorHinge
-      value: 
-      objectReference: {fileID: 215015548}
-    - target: {fileID: 114655609252120514, guid: 7883eb0572c9b3247b23098ccb1d1e53,
-        type: 2}
-      propertyPath: loseDoorAngle
-      value: 65.35
+      propertyPath: maxSecondsForUserToCloseDoor
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7883eb0572c9b3247b23098ccb1d1e53, type: 2}
@@ -1146,7 +1141,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &354224099 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4326671649683890, guid: 7883eb0572c9b3247b23098ccb1d1e53,
+  m_PrefabParentObject: {fileID: 4412370258146712, guid: 7883eb0572c9b3247b23098ccb1d1e53,
     type: 2}
   m_PrefabInternal: {fileID: 254687444}
 --- !u!1 &381018958

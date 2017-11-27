@@ -11,11 +11,12 @@ public class doorOpen : MonoBehaviour {
     public float openDoorAngle;
     public float glitchChance;
     public bool canInteractWithDoor { get; private set; }
-    bool userStillPlaying = true;
+    public bool userStillPlaying { get; private set; }
     public float loseDoorAngle { get; private set; }
 
     private void Awake()
     {
+        userStillPlaying = true;
         loseDoorAngle = openDoorAngle + Random.Range(6, 10);
     }
 
@@ -25,13 +26,13 @@ public class doorOpen : MonoBehaviour {
 
     /*                  Scripted Events                         */
     //Bathroom monster activated - first time door open
-    public void setDoorAngleWithDuration(float angle, float duration, Ease easey = Ease.OutSine)
+    public void setDoorAngleWithDuration(float angle, float duration, Ease easey = Ease.InSine)
     {
         gameObject.transform.DOKill();
         gameObject.transform.DORotate(new Vector3(0.0f, angle, 0.0f), duration).SetEase(easey);
         canInteractWithDoor = false;
 
-        if (angle == openDoorAngle)
+        if (angle == openDoorAngle && userStillPlaying)
         {
             Invoke("invokeInteractionToTrue", duration);
         }
@@ -54,13 +55,13 @@ public class doorOpen : MonoBehaviour {
 
     void glitchToCertainAngle()
     {
-        float almostClosedAngle = Random.Range(1, 10);
+        float almostClosedAngle = Random.Range(1, 3);
         float duration = Random.Range(2, 4);
         setDoorAngleWithDuration(almostClosedAngle,duration);
-        Invoke("invokeDoorToAngle", duration);
+        Invoke("invokeDoorToOpenDoorAngle", duration);
     }
 
-    void invokeDoorToAngle() {
+    void invokeDoorToOpenDoorAngle() {
         setDoorAngleWithDuration(openDoorAngle,Random.Range(2,4));
     }
 

@@ -688,7 +688,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4412370258146712}
-  - component: {fileID: 95151672837958208}
   - component: {fileID: 82689479127043088}
   - component: {fileID: 114244371685784328}
   m_Layer: 0
@@ -1891,23 +1890,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95151672837958208
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1771568699011796}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: aa723b44260e74040869a722c46a85c5, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95372915412004850
 Animator:
   serializedVersion: 3
@@ -2025,6 +2007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f603df3653020c041846bbc34f66fef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minSecondsForUserToCloseDoor: 0
+  maxSecondsForUserToCloseDoor: 0
 --- !u!137 &137644246106851864
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
