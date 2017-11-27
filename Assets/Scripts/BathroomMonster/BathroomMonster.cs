@@ -23,6 +23,8 @@ public class BathroomMonster : MonoBehaviour {
     float doorOpenDuration;
 
     //Seconds for user to close the door
+    public float minSecondsForUserToCloseDoor;
+    public float maxSecondsForUserToCloseDoor;
     float secondsBeforeUserLose;
 
     //Seconds before jump scare starts
@@ -36,7 +38,7 @@ public class BathroomMonster : MonoBehaviour {
         doorOpenDuration = Random.Range(3, 5);
 
         //Seconds for user to close the door
-        secondsBeforeUserLose = Random.Range(10,15);
+        secondsBeforeUserLose = Random.Range(minSecondsForUserToCloseDoor, maxSecondsForUserToCloseDoor);
 
         //Seconds before jump scare starts
         secondsBeforeJumpScareStarts = Random.Range(5,10)+doorOpenDuration;
@@ -103,6 +105,7 @@ public class BathroomMonster : MonoBehaviour {
 
     void userFailed()
     {
+        Debug.Log("Jump Scare Starting in:"+ secondsBeforeJumpScareStarts);
         secondsBeforeJumpScareStarts -= Time.deltaTime;
         if (secondsBeforeJumpScareStarts < 0)
         {

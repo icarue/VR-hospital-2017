@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openDoorAngle: 41.8
-  percentageChanceToGlitchDoor: 60
+  percentageChanceToGlitchDoor: 40
 --- !u!4 &215015550
 Transform:
   m_ObjectHideFlags: 0

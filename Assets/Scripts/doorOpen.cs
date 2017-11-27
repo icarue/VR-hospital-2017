@@ -9,7 +9,7 @@ public class doorOpen : MonoBehaviour {
 
     //Bathroom Door properties
     public float openDoorAngle;
-    public float percentageChanceToGlitchDoor;
+    public float glitchChance;
     public bool canInteractWithDoor { get; private set; }
     bool userStillPlaying = true;
     public float loseDoorAngle { get; private set; }
@@ -30,6 +30,11 @@ public class doorOpen : MonoBehaviour {
         gameObject.transform.DOKill();
         gameObject.transform.DORotate(new Vector3(0.0f, angle, 0.0f), duration).SetEase(easey);
         canInteractWithDoor = false;
+
+        if (angle == openDoorAngle)
+        {
+            Invoke("invokeInteractionToTrue", duration);
+        }
     }
 
 
@@ -37,7 +42,7 @@ public class doorOpen : MonoBehaviour {
     //When user interacts with the door and tries to close it
     public void tryToCloseTheDoor() {
         float change = Random.Range(0, 100);
-        if (change < percentageChanceToGlitchDoor)
+        if (change > glitchChance)
         {
             //Unable to close door
             glitchToCertainAngle();
@@ -52,20 +57,16 @@ public class doorOpen : MonoBehaviour {
         float almostClosedAngle = Random.Range(1, 10);
         float duration = Random.Range(2, 4);
         setDoorAngleWithDuration(almostClosedAngle,duration);
-        Invoke("openDoorToSetAngle", duration);
+        Invoke("invokeDoorToAngle", duration);
     }
 
-    void openDoorToSetAngle() {
-        setDoorAngleWithDuration(openDoorAngle,Random.Range(1,3));
+    void invokeDoorToAngle() {
+        setDoorAngleWithDuration(openDoorAngle,Random.Range(2,4));
     }
 
-    private void Update()
+    void invokeInteractionToTrue()
     {
-        int angle = (int)this.transform.rotation.eulerAngles.y;
-
-        if (angle == (int)openDoorAngle && userStillPlaying) {
-            canInteractWithDoor = true;
-        }
+        canInteractWithDoor = true;
     }
 
 
