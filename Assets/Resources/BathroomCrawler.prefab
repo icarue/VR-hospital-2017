@@ -1220,7 +1220,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771568699011796}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -2.5468245, y: 18.28, z: 3.358961}
+  m_LocalPosition: {x: -17.846825, y: 0, z: 20.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4137122151895430}
@@ -2007,8 +2007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f603df3653020c041846bbc34f66fef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSecondsForUserToCloseDoor: 0
-  maxSecondsForUserToCloseDoor: 0
+  minSecondsForUserToCloseDoor: 8
+  maxSecondsForUserToCloseDoor: 10
 --- !u!137 &137644246106851864
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

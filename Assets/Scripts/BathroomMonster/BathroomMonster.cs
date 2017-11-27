@@ -29,9 +29,10 @@ public class BathroomMonster : MonoBehaviour {
     public float maxSecondsForUserToCloseDoor;
     float secondsBeforeUserLose;
 
-    //Disappearing properties
-    float speedOfDisappearance = 10;
+    //Disappearing Monster properties
+    float speedOfDisappearance = 1;
     Vector3 disappearDestination;
+
     //Seconds before jump scare starts
     float secondsBeforeJumpScareStarts;
 
@@ -46,12 +47,12 @@ public class BathroomMonster : MonoBehaviour {
         secondsBeforeUserLose = Random.Range(minSecondsForUserToCloseDoor, maxSecondsForUserToCloseDoor);
 
         //Disappearing bathroom monster disapearrance
-        disappearDestination = transform.localPosition;
-        disappearDestination.y = 15;
+        disappearDestination = transform.position;
+        disappearDestination.y = -2;
 
 
         //Seconds before jump scare starts
-        secondsBeforeJumpScareStarts = Random.Range(5,8);
+        secondsBeforeJumpScareStarts = Random.Range(0,3)+doorOpenDuration;
     }
 
     // Use this for initialization
@@ -121,9 +122,9 @@ public class BathroomMonster : MonoBehaviour {
     void monsterDisappears()
     {
         float step = speedOfDisappearance * Time.deltaTime;
-        gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, disappearDestination, step);
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, disappearDestination, step);
 
-        if (gameObject.transform.localPosition == disappearDestination)
+        if (gameObject.transform.position == disappearDestination)
         {
             currentStage = MonsterStage.UserFailed;
         }
@@ -132,6 +133,7 @@ public class BathroomMonster : MonoBehaviour {
     void userFailed()
     {
         secondsBeforeJumpScareStarts -= Time.deltaTime;
+        Debug.Log(secondsBeforeJumpScareStarts);
         if (secondsBeforeJumpScareStarts < 0)
         {
             GameObject.Find("CameraObject").GetComponent<JumpScare>().startJumpScare();
