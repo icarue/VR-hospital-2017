@@ -41,8 +41,8 @@ public class CorridorMonster : MonoBehaviour {
         timeForUserToLose = timeForCurtainsToStayOpen + Random.Range(3, 5);
 
         //Door
-        timeForDoorToOpen = Random.Range(2, 4);
-        timeUntilJumpScare = Random.Range(3, 5)+timeForDoorToOpen;
+        timeForDoorToOpen = Random.Range(2, 3);
+        timeUntilJumpScare = Random.Range(0, 2)+timeForDoorToOpen;
     }
 
     // Update is called once per frame
@@ -95,6 +95,9 @@ public class CorridorMonster : MonoBehaviour {
     void doorOpen(){
         door.setDoorAngleWithDuration(openDoorAngle,timeForDoorToOpen);
         currentStage = MonsterStages.JumpScare;
+        foreach (GameObject model in GameObject.FindGameObjectsWithTag("CorridorMonster")) {
+            model.SetActive(false);
+        }
     }
 
     void userWin(){

@@ -52,7 +52,7 @@ public class BathroomMonster : MonoBehaviour {
 
 
         //Seconds before jump scare starts
-        secondsBeforeJumpScareStarts = Random.Range(0,3)+doorOpenDuration;
+        secondsBeforeJumpScareStarts = Random.Range(0,2)+doorOpenDuration;
     }
 
     // Use this for initialization

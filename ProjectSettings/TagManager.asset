@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BathroomMonster
   - Door
+  - CorridorMonster
   layers:
   - Default
   - TransparentFX

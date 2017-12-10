@@ -33,7 +33,7 @@ public class JumpScare : MonoBehaviour {
 
     public void startJumpScare()
     {
-        crawler = GameObject.Instantiate(crawler, gameObject.transform);
+        crawler = Instantiate(crawler, gameObject.transform);
         crawler.transform.localPosition = spawnLocation;
         crawler.transform.localRotation = Quaternion.Euler(spawnRotation);
         endGame = true;

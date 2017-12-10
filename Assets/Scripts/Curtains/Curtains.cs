@@ -35,4 +35,5 @@ public class Curtains : MonoBehaviour {
             isCurtainOpen = false;
         }
     }
+
 }
