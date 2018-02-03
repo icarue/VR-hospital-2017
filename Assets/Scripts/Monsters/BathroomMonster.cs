@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BathroomMonster : MonoBehaviour {
+public class BathroomMonster : Monster {
 
     enum MonsterStage
     {
@@ -11,15 +11,14 @@ public class BathroomMonster : MonoBehaviour {
         DoorClosed,
         MonsterMovesDown,
         UserFailed,
-        
     }
 
     //Current stage
     MonsterStage currentStage = MonsterStage.DoorOpen;
 
-    //Bathroom Door
-    GameObject doorHinge;
-    doorOpen door;
+	[SerializeField]
+	private GameObject DoorHinge;
+	doorOpen door;
 
     //Open Door
     float doorOpenDuration;
@@ -33,33 +32,25 @@ public class BathroomMonster : MonoBehaviour {
     float speedOfDisappearance = 1;
     Vector3 disappearDestination;
 
-    //Seconds before jump scare starts
-    float secondsBeforeJumpScareStarts;
+	protected override void setupMonsterToStartAttack() {
+		//Door
+		door = DoorHinge.GetComponent<doorOpen>();
+		doorOpenDuration = Random.Range(3, 5);
 
-    void Awake()
-    {
-        //Door
-        doorHinge = GameObject.Find("DoorHinge");
-        door = doorHinge.GetComponent<doorOpen>();
-        doorOpenDuration = Random.Range(3, 5);
+		//Seconds for user to close the door
+		secondsBeforeUserLose = Random.Range(minSecondsForUserToCloseDoor, maxSecondsForUserToCloseDoor);
 
-        //Seconds for user to close the door
-        secondsBeforeUserLose = Random.Range(minSecondsForUserToCloseDoor, maxSecondsForUserToCloseDoor);
-
-        //Disappearing bathroom monster disapearrance
-        disappearDestination = transform.position;
-        disappearDestination.y = -2;
-
-
-        //Seconds before jump scare starts
-        secondsBeforeJumpScareStarts = Random.Range(0,2)+doorOpenDuration;
-    }
-
-    // Use this for initialization
-    void Start () {
-        door.setDoorAngleWithDuration(door.openDoorAngle, doorOpenDuration);
-	}
+		//Disappearing bathroom monster disapearrance
+		disappearDestination = transform.position;
+		disappearDestination.y = -2;
 	
+		door.setDoorAngleWithDuration(door.openDoorAngle, doorOpenDuration);
+	}
+
+	protected override void setTimeUntilJumpScare() {
+		timeUntilJumpScare = Random.Range(0,2)+doorOpenDuration;
+	}
+
 	// Update is called once per frame
 	void Update () {
         switch(currentStage)
@@ -71,13 +62,13 @@ public class BathroomMonster : MonoBehaviour {
                 doorClosingChance();
                 break;
             case MonsterStage.DoorClosed:
-                userPassed();
+				playerWins();
                 break;
             case MonsterStage.MonsterMovesDown:
                 monsterDisappears();
                 break;
             case MonsterStage.UserFailed:
-                userFailed();
+				gameOver();
                 break;
         }
 		
@@ -105,19 +96,13 @@ public class BathroomMonster : MonoBehaviour {
         }
 
         //Check if Door is closed
-        if ((int)doorHinge.transform.rotation.eulerAngles.y == 0)
+		if ((int)DoorHinge.transform.rotation.eulerAngles.y == 0)
         {
             Debug.Log(secondsBeforeUserLose);
             //User able to close the door
             currentStage = MonsterStage.DoorClosed;
         }
     }
-
-    void userPassed()
-    {
-        Destroy(gameObject);
-    }
-
 
     void monsterDisappears()
     {
@@ -127,17 +112,6 @@ public class BathroomMonster : MonoBehaviour {
         if (gameObject.transform.position == disappearDestination)
         {
             currentStage = MonsterStage.UserFailed;
-        }
-    }
-
-    void userFailed()
-    {
-        secondsBeforeJumpScareStarts -= Time.deltaTime;
-        Debug.Log(secondsBeforeJumpScareStarts);
-        if (secondsBeforeJumpScareStarts < 0)
-        {
-            GameObject.Find("CameraObject").GetComponent<JumpScare>().startJumpScare();
-            Destroy(gameObject);
         }
     }
 }

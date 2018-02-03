@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CorridorMonster : MonoBehaviour {
+public class CorridorMonster : Monster {
 
     enum MonsterStages
     {
-        MoveIn,
-        UserInteraction,
+		UserInteraction,
         DoorOpen,
         JumpScare,
         UserWin
     }
 
-    MonsterStages currentStage = MonsterStages.MoveIn;
+	MonsterStages currentStage;
 
     //User interaction
     float timeForCurtainsToStayOpen;
@@ -21,37 +20,45 @@ public class CorridorMonster : MonoBehaviour {
     float timeForUserToLose;
 
     //Curtains
+	[SerializeField]
+	private GameObject localCurtain;
     Curtains curtain;
 
     //Door
+	[SerializeField]
+	private GameObject LeftDoorHinge;
     doorOpen door;
     float openDoorAngle = -90;
     float timeForDoorToOpen;
 
-    //Jumpscare
-    float timeUntilJumpScare;
 
-    private void Awake()
-    {
-        door = GameObject.Find("LeftDoorHinge").GetComponent<doorOpen>();
-        curtain = GameObject.Find("LocalCurtain").GetComponent<Curtains>();
-        //Curtains
-        timeForCurtainsToStayOpen = Random.Range(5, 8);
-        currentTimeToStayOpen = timeForCurtainsToStayOpen;
-        timeForUserToLose = timeForCurtainsToStayOpen + Random.Range(3, 5);
+	void Start() {
+		door = LeftDoorHinge.GetComponent<doorOpen>();
+		curtain = localCurtain.GetComponent<Curtains>();
+	}
 
-        //Door
-        timeForDoorToOpen = Random.Range(2, 3);
-        timeUntilJumpScare = Random.Range(0, 2)+timeForDoorToOpen;
-    }
+	protected override void setupMonsterToStartAttack ()
+	{
+		//Curtains
+		timeForCurtainsToStayOpen = Random.Range(5, 8);
+		currentTimeToStayOpen = timeForCurtainsToStayOpen;
+		timeForUserToLose = timeForCurtainsToStayOpen + Random.Range(3, 5);
 
+		//Door
+		timeForDoorToOpen = Random.Range(2, 3);
+
+		currentStage = MonsterStages.UserInteraction;
+	}
+
+	protected override void setTimeUntilJumpScare(){
+		timeUntilJumpScare = Random.Range(0, 2)+timeForDoorToOpen;
+	}
+		
     // Update is called once per frame
     void Update () {
+		Debug.Log (currentStage);
         switch (currentStage)
         {
-            case MonsterStages.MoveIn:
-                monsterMoveIntoPosition();
-                break;
             case MonsterStages.UserInteraction:
                 userInteraction();
                 break;
@@ -59,19 +66,14 @@ public class CorridorMonster : MonoBehaviour {
                 doorOpen();
                 break;
             case MonsterStages.JumpScare:
-                jumpScare();
+				gameOver();
                 break;
             case MonsterStages.UserWin:
-                userWin();
+				playerWins();
                 break;
         }
 	}
-
-    void monsterMoveIntoPosition()
-    {
-        currentStage = MonsterStages.UserInteraction;
-    }
-
+		
     void userInteraction()
     {
         if(curtain.isCurtainOpen){
@@ -95,20 +97,10 @@ public class CorridorMonster : MonoBehaviour {
     void doorOpen(){
         door.setDoorAngleWithDuration(openDoorAngle,timeForDoorToOpen);
         currentStage = MonsterStages.JumpScare;
+		//only deactive mesh
         foreach (GameObject model in GameObject.FindGameObjectsWithTag("CorridorMonster")) {
             model.SetActive(false);
         }
     }
 
-    void userWin(){
-        Destroy(gameObject);
-    }
-
-    void jumpScare(){
-        timeUntilJumpScare -= Time.deltaTime;
-        if (timeUntilJumpScare < 0){
-            GameObject.Find("CameraObject").GetComponent<JumpScare>().startJumpScare();
-            Destroy(gameObject);
-        }
-    }
 }
