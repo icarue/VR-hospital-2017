@@ -18,22 +18,41 @@ public class Curtains : MonoBehaviour {
         anim.speed = speed;
 
     }
-    // Update is called once per frame
-    void Update()
+
+    private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Press down");
-            anim.Play("curtainOpening");
-            isCurtainOpen = true;
-
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            anim.Play("curtainClosing");
-            isCurtainOpen = false;
-        }
+        anim.Play("curtainOpening");
+        isCurtainOpen = true;
     }
 
+    private void OnMouseExit()
+    {
+        anim.Play("curtainClosing");
+        isCurtainOpen = false;
+    }
+
+    private void OnMouseUp()
+    {
+        anim.Play("curtainClosing");
+        isCurtainOpen = false;
+    }
+    /*
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Press down");
+                anim.Play("curtainOpening");
+                isCurtainOpen = true;
+
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                anim.Play("curtainClosing");
+                isCurtainOpen = false;
+            }
+        }
+        */
 }
