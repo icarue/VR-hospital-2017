@@ -20,6 +20,9 @@ public class JumpScare : MonoBehaviour {
     public float Roughness = 5;
     public float FadeInTime = 0.1f;
 
+	[SerializeField]
+	GameObject GameOverScreen;
+
     private void Start()
     {
         spawnLocation = new Vector3(0, -9, 2.86f);
@@ -69,7 +72,9 @@ public class JumpScare : MonoBehaviour {
 
     void blackScreen()
     {
-        GameObject.Find("GameOverScreen").GetComponent<Image>().color = new Color(0, 0, 0, 255);
+		GameOverScreen.GetComponent<Image>().color = new Color(0, 0, 0, 255);
+		GameOverScreen.GetComponent<RectTransform> ().localScale = new Vector3 (1, 1, 1);
+
     }
 
     void shakeEnemy()

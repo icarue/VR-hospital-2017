@@ -56,7 +56,6 @@ public class CorridorMonster : Monster {
 		
     // Update is called once per frame
     void Update () {
-		Debug.Log (currentStage);
         switch (currentStage)
         {
             case MonsterStages.UserInteraction:
