@@ -7,7 +7,11 @@ public class CeilingMonster : Monster {
 
     enum MonsterStages
     {
-
+		OpenTile,
+		UserInteraction,
+		HideMonster,
+		JumpScare,
+		UserWin
     }
 
     protected override void setTimeUntilJumpScare()
@@ -19,11 +23,7 @@ public class CeilingMonster : Monster {
     {
         throw new NotImplementedException();
     }
-
-    // Use this for initialization
-    void Start () {
 		
-	}
 	
 	// Update is called once per frame
 	void Update () {
