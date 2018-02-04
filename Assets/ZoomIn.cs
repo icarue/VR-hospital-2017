@@ -9,6 +9,9 @@ public class ZoomIn : MonoBehaviour {
 	[SerializeField]
 	Camera camera;
 
+    public float minFOV;
+    public float maxFOV;
+
 	void Update()
 	{
 		// If there are two touches on the device...
@@ -45,17 +48,18 @@ public class ZoomIn : MonoBehaviour {
 				camera.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
 
 				// Clamp the field of view to make sure it's between 0 and 180.
-				camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 40f, 60f);
+				camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, minFOV, maxFOV);
 			}
 		}
 
-//		if (Input.touchCount == 0) {
-//			// Otherwise change the field of view based on the change in distance between the touches.
-//			camera.fieldOfView += perspectiveZoomSpeed;
-//
-//			if (camera.fieldOfView > 60) {
-//				return;
-//			}
-//		}
+		if (Input.touchCount == 0) {
+			// Otherwise change the field of view based on the change in distance between the touches.
+			if (camera.fieldOfView > maxFOV) {
+				return;
+			} else{
+                camera.fieldOfView += perspectiveZoomSpeed*1.5f;
+            }
+		}
+        
 	}
 }
