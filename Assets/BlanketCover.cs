@@ -43,7 +43,6 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 		} else {
 			isBlanketUp = false;
 		}
-		Debug.Log (isBlanketUp);
 	}
 
 
