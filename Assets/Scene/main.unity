@@ -298,6 +298,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 93.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1736571103714086, guid: 6b168398642d2a84bbc9121527667c01, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114666077487264120, guid: 6b168398642d2a84bbc9121527667c01, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6b168398642d2a84bbc9121527667c01, type: 2}
@@ -318,6 +322,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7832c0cd01364a24da0100f1b813d7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraObject: {fileID: 1173616970}
+  CeilingTile: {fileID: 675761929}
+  blanketObj: {fileID: 378114487}
+  amountCeilingMoves: {x: 0, y: 0.2, z: 0}
+  ceilingSpeed: 0.1
+  amountMonsterMoves: {x: 0, y: 0, z: 4}
+  monsterHideSpeed: 4
 --- !u!1001 &138226951
 Prefab:
   m_ObjectHideFlags: 0
@@ -1124,6 +1135,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 737f373ca7cbd4824b95c3ec01cff99c, type: 3}
   m_PrefabInternal: {fileID: 544612248}
+--- !u!1 &594829734 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1933845511651178, guid: 13222988935324f1fb1ac26e82897406,
+    type: 2}
+  m_PrefabInternal: {fileID: 1772612627}
 --- !u!1001 &660338590
 Prefab:
   m_ObjectHideFlags: 0
@@ -1215,7 +1231,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 675761929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.506, z: -0.23}
+  m_LocalPosition: {x: 0, y: -0.626, z: -0.23}
   m_LocalScale: {x: 0.7, y: 0.64, z: 1}
   m_Children: []
   m_Father: {fileID: 1506514585}
@@ -1830,8 +1846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsters:
+  - {fileID: 132418203}
+  - {fileID: 594829734}
   - {fileID: 660338591}
-  - {fileID: 1983693070}
 --- !u!4 &1043706832
 Transform:
   m_ObjectHideFlags: 0
@@ -2066,14 +2083,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173616970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.73619705, y: -0.0098023, z: -0.010665522, w: 0.6766123}
   m_LocalPosition: {x: 0, y: 8.3, z: -8.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1407589177}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -94.83, y: -1.66, z: 0}
 --- !u!114 &1173616972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3488,11 +3505,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openDoorAngle: 0
   glitchChance: 0
---- !u!1 &1983693070 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1933845511651178, guid: 13222988935324f1fb1ac26e82897406,
-    type: 2}
-  m_PrefabInternal: {fileID: 1772612627}
 --- !u!1 &2006653412 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 737f373ca7cbd4824b95c3ec01cff99c, type: 3}
