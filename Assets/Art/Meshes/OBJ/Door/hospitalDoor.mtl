@@ -1,0 +1,31 @@
+# Blender MTL File: 'hospitalDoor.blend'
+# Material Count: 3
+
+newmtl Glass
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.453972 0.640000 0.612600
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.152318
+illum 2
+
+newmtl Material.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /Users/diego/Documents/GitHub/VR-hospital-2017/Assets/Art/Meshes/Blender/Door/hospitalDoor w color.png
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
