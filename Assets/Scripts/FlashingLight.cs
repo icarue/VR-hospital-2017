@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlashingLight : MonoBehaviour {
 
+    public float maxIntensity = 1f;
 	float lightsOnDur = 0.05f;
 	float lightsOffDur = 1f;
 	bool isLightOn = false;
@@ -34,7 +35,7 @@ public class FlashingLight : MonoBehaviour {
 
 	void switchLights() {
 		if (isLightOn)
-			lightBulb.intensity = 5;
+			lightBulb.intensity = maxIntensity;
 		else
 			lightBulb.intensity = 0;
 
