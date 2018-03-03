@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 //using Diversifly;
 
 public class GyroCamera : MonoBehaviour
@@ -11,8 +10,6 @@ public class GyroCamera : MonoBehaviour
     private float _calibrationYAngle = 0f;
     private Transform _rawGyroRotation;
     private float _tempSmoothing;
-
-	public Text attitudeText;
 
     // SETTINGS
     [SerializeField] private float _smoothing = 1f;
@@ -38,15 +35,6 @@ public class GyroCamera : MonoBehaviour
     {
         ApplyGyroRotation();
         ApplyCalibration();
-		float yRot = _rawGyroRotation.eulerAngles.y;
-		if (yRot >= 90 && yRot < 180) {
-			_rawGyroRotation.eulerAngles = new Vector3(_rawGyroRotation.eulerAngles.x, 90, _rawGyroRotation.eulerAngles.z);
-		} else if (yRot < 270 && yRot >= 180) {
-			_rawGyroRotation.eulerAngles = new Vector3(_rawGyroRotation.eulerAngles.x, 270, _rawGyroRotation.eulerAngles.z);
-		}
-		attitudeText.text = _rawGyroRotation.eulerAngles.ToString();
-
-		//_rawGyroRotation.rotation = Quaternion.identity;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, _rawGyroRotation.rotation, _smoothing);
     }
