@@ -5,70 +5,51 @@ using DG.Tweening;
 
 public class doorOpen : MonoBehaviour {
 
-    public readonly int closedDoorAngle = 0;
+	public float rotationAngle;
+	public float rotationalSpeed;
+	
+	// Update is called once per frame
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.A)) {
+			setAngleDur (90f, 2f);
+		} 
+		if (Input.GetKeyDown (KeyCode.D)) {
+			setAngleDur (0f, 0.2f, Ease.InSine);
+		}
 
-    //Bathroom Door properties
-    public float openDoorAngle;
-    public float glitchChance;
-    public bool canInteractWithDoor { get; private set; }
-    public bool userStillPlaying { get; private set; }
-    public float loseDoorAngle { get; private set; }
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			setAngleSpeed (90f, 45f);
+		} 
 
-    private void Awake()
-    {
-        userStillPlaying = true;
-        loseDoorAngle = openDoorAngle + Random.Range(6, 10);
-    }
+		if (Input.GetKeyDown (KeyCode.E)) {
+			setAngleSpeed (0f, 450f, Ease.InSine);
+		}
 
-    public void setUserLost() {
-        userStillPlaying = false;
-    }
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			setAngleDur(rotationAngle, rotationalSpeed);
+		}
 
-    /*                  Scripted Events                         */
-    //Bathroom monster activated - first time door open
-    public void setDoorAngleWithDuration(float angle, float duration, Ease easey = Ease.InSine)
-    {
-        gameObject.transform.DOKill();
-        gameObject.transform.DORotate(new Vector3(0.0f, angle, 0.0f), duration).SetEase(easey);
-        canInteractWithDoor = false;
+	}
 
-        if (angle == openDoorAngle && userStillPlaying)
-        {
-            Invoke("invokeInteractionToTrue", duration);
-        }
-    }
+	//Tween with a set duration
+	public void setAngleDur(float angle, float duration, Ease easey = Ease.OutSine){
+		//rotationAngle = angle;
+		gameObject.transform.DOKill();
+		gameObject.transform.DORotate (new Vector3 (0.0f, angle, 0.0f), duration).SetEase(easey);
 
+		Debug.Log (gameObject.transform.localEulerAngles.y);
 
-    /*                  User Interaction Events                 */
-    //When user interacts with the door and tries to close it
-    public void tryToCloseTheDoor() {
-        float change = Random.Range(0, 100);
-        if (change > glitchChance)
-        {
-            //Unable to close door
-            glitchToCertainAngle();
-        } else
-        {
-            setDoorAngleWithDuration(closedDoorAngle, Random.Range(2,4));
-        }
-    }
+	}
 
-    void glitchToCertainAngle()
-    {
-        float almostClosedAngle = Random.Range(1, 3);
-        float duration = Random.Range(2, 4);
-        setDoorAngleWithDuration(almostClosedAngle,duration);
-        Invoke("invokeDoorToOpenDoorAngle", duration);
-    }
+	//Tween with speed in deg per second
+	public void setAngleSpeed(float angle, float speed, Ease easey = Ease.OutSine){
+		//rotationAngle = angle;
+		gameObject.transform.DOKill();
+		gameObject.transform.DORotate (new Vector3 (0.0f, angle, 0.0f), Mathf.Abs(gameObject.transform.localEulerAngles.y-angle)/speed).SetEase(easey);
 
-    void invokeDoorToOpenDoorAngle() {
-        setDoorAngleWithDuration(openDoorAngle,Random.Range(2,4));
-    }
+		Debug.Log (gameObject.transform.localEulerAngles.y);
 
-    void invokeInteractionToTrue()
-    {
-        canInteractWithDoor = true;
-    }
+	}
 
 
 }
