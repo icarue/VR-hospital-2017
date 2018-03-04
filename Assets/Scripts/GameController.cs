@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] monsters;
 
+	[SerializeField]
+	private GameObject[] gameObjectsToActiveOnPlay;
+
 	float timerUntilNextMonster;
 	bool monsterActivated = false;
 
@@ -30,6 +33,12 @@ public class GameController : MonoBehaviour {
 		timerUntilNextMonster = Random.Range (5, 10);
 		for (int i = 0; i < monsters.Length; i++) {
 			monsters [i].GetComponent<Monster> ().onPlayerWin += setMonsterActivatedFalse;
+		}
+	}
+
+	void activateGameObjects(){
+		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++) {
+			gameObjectsToActiveOnPlay [i].SetActive (true);
 		}
 	}
 	
