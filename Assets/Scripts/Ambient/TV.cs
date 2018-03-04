@@ -20,6 +20,5 @@ public class TV : Ambient
         yield return new WaitForSeconds(waitTime);
         endAmb();
         gameObject.SetActive(false);
-        
     }
 }
