@@ -34,7 +34,8 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < monsters.Length; i++) {
 			monsters [i].GetComponent<Monster> ().onPlayerWin += setMonsterActivatedFalse;
 		}
-	}
+        activateGameObjects();
+    }
 
 	void activateGameObjects(){
 		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++) {

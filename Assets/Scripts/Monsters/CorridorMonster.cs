@@ -28,7 +28,7 @@ public class CorridorMonster : Monster {
 	[SerializeField]
 	private GameObject LeftDoorHinge;
     doorOpen door;
-    float openDoorAngle = -90;
+    float openDoorAngle = -40;
     float timeForDoorToOpen;
 
 
