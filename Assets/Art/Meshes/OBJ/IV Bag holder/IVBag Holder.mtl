@@ -1,8 +1,8 @@
-# Blender MTL File: 'IVBag Holder.blend'
+# Blender MTL File: 'None'
 # Material Count: 4
 
 newmtl ElectBox
-Ns 96.078431
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -10,10 +10,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /Users/diego/Documents/GitHub/VR-hospital-2017/Assets/Art/Images/ElectricBox1 c.jpg
+map_Kd c.jpg
 
 newmtl ElectBox.001
-Ns 96.078431
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -21,10 +21,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /Users/diego/Documents/GitHub/VR-hospital-2017/Assets/Art/Images/ElectricBox2 c.jpg
+map_Kd c.jpg
 
 newmtl Material.000
-Ns 96.078431
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -32,10 +32,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /Users/diego/Documents/GitHub/VR-hospital-2017/Assets/Art/Images/IV Bag tex.png
+map_Kd tex.png
 
 newmtl Material.001
-Ns 70.588235
+Ns 68.627451
 Ka 1.000000 1.000000 1.000000
 Kd 0.571624 0.571624 0.571624
 Ks 1.000000 1.000000 1.000000
