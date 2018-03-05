@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: dc379c236fcaa304fbfbfbe1700c84b8
-timeCreated: 1520236533
+guid: 25ad2ed1693d6384b8f2ee8ea9549f53
+timeCreated: 1520236670
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,8 +9,7 @@ ModelImporter:
     100002: default
     400000: //RootNode
     400002: default
-    2100000: Material.002
-    2100002: CRwhite
+    2100000: CRwhite.001
     2300000: default
     3300000: default
     4300000: default
