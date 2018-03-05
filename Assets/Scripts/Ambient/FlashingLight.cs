@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashingLight : MonoBehaviour {
+public class FlashingLight : Ambient {
 
     public float maxIntensity = 1f;
 	float lightsOnDur = 0.05f;
@@ -11,13 +11,33 @@ public class FlashingLight : MonoBehaviour {
 	float timer;
 	Light lightBulb;
 
-	void Start() {
+    //Ambient Properties
+    float waitTime;
+
+	void Awake() {
 		timer = lightsOffDur;
 		lightBulb = gameObject.GetComponent<Light> ();
-	}
+    }
 
-	// Update is called once per frame
-	void Update () {
+    private void OnEnable()
+    {
+        waitTime = Random.Range(5, 7);
+    }
+
+    public override void StartAmb()
+    {
+        gameObject.SetActive(true);
+    }
+
+    IEnumerator waitAndDeactivate()
+    {
+        yield return new WaitForSeconds(waitTime);
+        endAmb();
+        gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		timer -= Time.deltaTime;
 		if (timer < 0) {
 			setTimer ();
