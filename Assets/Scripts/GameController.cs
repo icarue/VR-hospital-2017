@@ -8,9 +8,15 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject[] monsters;
+    [SerializeField]
+    private GameObject[] ambients;
+
+	[SerializeField]
+	private GameObject[] gameObjectsToActiveOnPlay;
 
 	float timerUntilNextMonster;
 	bool monsterActivated = false;
+    bool ambientActivated = false;
 
 	public void Awake()
 	{
@@ -28,8 +34,28 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		timerUntilNextMonster = Random.Range (5, 10);
-		for (int i = 0; i < monsters.Length; i++) {
-			monsters [i].GetComponent<Monster> ().onPlayerWin += setMonsterActivatedFalse;
+        setupDelegates();
+        activateGameObjects();
+        ambients[0].GetComponent<Ambient>().StartAmb();
+    }
+
+    void setupDelegates()
+    {
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            monsters[i].GetComponent<Monster>().onPlayerWin += setMonsterActivatedFalse;
+        }
+
+        for (int i = 0; i < ambients.Length; i++)
+        {
+            ambients[i].GetComponent<Ambient>().onEnd += setAmbientActivatedFalse;
+        }
+    }
+
+    //Any Deactivated gameobjects will be activated
+	void activateGameObjects(){
+		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++) {
+			gameObjectsToActiveOnPlay [i].SetActive (true);
 		}
 	}
 	
@@ -54,7 +80,14 @@ public class GameController : MonoBehaviour {
 		monsterActivated = false;
 		setTimeUntilNextMonster ();
 	}
-		
+
+    void setAmbientActivatedFalse()
+    {
+        ambientActivated = false;
+    }
+	
+
+    //Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
 		return Random.Range (0, max);
