@@ -1,0 +1,12 @@
+# Blender MTL File: 'lampShade.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ns 96.078431
+Ka 0.933962 0.933962 0.933962
+Kd 0.602264 0.557639 0.258799
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.900000
+d 0.981132
+illum 9
