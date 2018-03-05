@@ -382,6 +382,11 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 5.78
       objectReference: {fileID: 0}
+    - target: {fileID: 114178111742977812, guid: bda919ad2e968a24680b36d8b7785e25,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bda919ad2e968a24680b36d8b7785e25, type: 2}
   m_IsPrefabParent: 0
@@ -1215,6 +1220,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 675761929}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &710997992 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1293875634527258, guid: 8dbf7a9d712854349a50a9d056c8c173,
+    type: 2}
+  m_PrefabInternal: {fileID: 541619040}
 --- !u!1 &781438692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1367,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813694905}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &883133920 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1933845511651178, guid: 13222988935324f1fb1ac26e82897406,
+    type: 2}
+  m_PrefabInternal: {fileID: 1772612627}
 --- !u!1 &913079800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1043706832}
   - component: {fileID: 1043706831}
+  - component: {fileID: 1043706833}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1690,8 +1706,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsters:
   - {fileID: 132418203}
+  - {fileID: 660338591}
+  - {fileID: 883133920}
   ambients:
   - {fileID: 1237244133}
+  - {fileID: 710997992}
   gameObjectsToActiveOnPlay:
   - {fileID: 1217989972}
 --- !u!4 &1043706832
@@ -1707,6 +1726,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043706833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1043706830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20380e4e5be386d4fb5905c006fcdf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMagnitude: 3
+  maxRoughness: 5
 --- !u!1 &1104824055
 GameObject:
   m_ObjectHideFlags: 0

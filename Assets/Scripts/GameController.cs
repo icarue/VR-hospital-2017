@@ -36,7 +36,6 @@ public class GameController : MonoBehaviour {
 		timerUntilNextMonster = Random.Range (5, 10);
         setupDelegates();
         activateGameObjects();
-        ambients[0].GetComponent<Ambient>().StartAmb();
     }
 
     void setupDelegates()

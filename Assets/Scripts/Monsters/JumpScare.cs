@@ -43,7 +43,12 @@ public class JumpScare : MonoBehaviour {
         shakeEnemy();
 
         //Disable the Mouse look
-        gameObject.GetComponent<SmoothMouseLook>().enabled = false;
+#if UNITY_EDITOR
+        GetComponent<SmoothMouseLook>().enabled = false;
+#endif
+        GetComponent<RotateCamera>().enabled = false;
+        GetComponent<GyroCamera>().enabled = false;
+
 
         //Black Screen
         Invoke("blackScreen", 1);
