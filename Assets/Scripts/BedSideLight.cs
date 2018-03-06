@@ -13,4 +13,5 @@ public class BedSideLight : MonoBehaviour {
         spotLight.SetActive(isLightOn);
         isLightOn = !isLightOn;
     }
+
 }

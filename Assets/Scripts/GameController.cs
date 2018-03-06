@@ -10,9 +10,11 @@ public class GameController : MonoBehaviour {
 	private GameObject[] monsters;
     [SerializeField]
     private GameObject[] ambients;
-
 	[SerializeField]
 	private GameObject[] gameObjectsToActiveOnPlay;
+    [SerializeField]
+    private float secondsRateToIncreaseFear;
+    float secondsPassed = 0;
 
 	float timerUntilNextMonster;
 	bool monsterActivated = false;
@@ -62,14 +64,31 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (!monsterActivated) {
 			timerUntilNextMonster -= Time.deltaTime;
-		} 
 
-		if (timerUntilNextMonster < 0 && !monsterActivated) {
-			monsterActivated = true;
-			int index = selectMonster ();
-			monsters [index].GetComponent<Monster> ().launchAttack ();
-		}
+            if (timerUntilNextMonster < 0)
+            {
+                monsterActivated = true;
+                int index = selectMonster();
+                monsters[index].GetComponent<Monster>().launchAttack();
+            }
+        } else
+        {
+            secondsPassed += Time.deltaTime;
+            if (secondsPassed > secondsRateToIncreaseFear)
+            {
+                //Increase camera shake
+                GetComponent<FearShakeController>().increaseCameraShake();
+                secondsPassed = 0;
+            }
+
+        } 
 	}
+
+    void increaseFear()
+    {
+
+    }
+
 
 	void setTimeUntilNextMonster() {
 		timerUntilNextMonster = Random.Range (5, 10);
