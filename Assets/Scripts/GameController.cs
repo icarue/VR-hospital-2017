@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour {
 	private GameObject[] gameObjectsToActiveOnPlay;
     [SerializeField]
     private float secondsRateToIncreaseFear;
+    [SerializeField]
+    private GameObject lamp;
     float secondsPassed = 0;
 
 	float timerUntilNextMonster;
@@ -73,20 +75,20 @@ public class GameController : MonoBehaviour {
             }
         } else
         {
-            secondsPassed += Time.deltaTime;
-            if (secondsPassed > secondsRateToIncreaseFear)
-            {
-                //Increase camera shake
-                GetComponent<FearShakeController>().increaseCameraShake();
-                secondsPassed = 0;
-            }
-
+            increaseFear();   
         } 
 	}
 
     void increaseFear()
     {
-
+        secondsPassed += Time.deltaTime;
+        if (secondsPassed > secondsRateToIncreaseFear && 
+            !lamp.GetComponent<BedSideLight>().isLightOn)
+        {
+            //Increase camera shake
+            GetComponent<FearShakeController>().increaseCameraShake();
+            secondsPassed = 0;
+        }
     }
 
 

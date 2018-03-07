@@ -8,10 +8,19 @@ public class BedSideLight : MonoBehaviour {
     [SerializeField]
     GameObject spotLight;
 
-    private void OnMouseDown()
+    private void Start()
     {
-        spotLight.SetActive(isLightOn);
+        isLightOn = false;
+    }
+
+    private void OnMouseDown()
+    { 
         isLightOn = !isLightOn;
+        spotLight.SetActive(isLightOn);
+        if (isLightOn)
+        {
+            GameController.instance.GetComponent<FearShakeController>().resetShake();
+        }
     }
 
 }
