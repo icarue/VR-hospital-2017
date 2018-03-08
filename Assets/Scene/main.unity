@@ -1800,7 +1800,7 @@ MonoBehaviour:
   - {fileID: 710997992}
   gameObjectsToActiveOnPlay:
   - {fileID: 1217989972}
-  secondsRateToIncreaseFear: 0.5
+  secondsRateToIncreaseFear: 5
   lamp: {fileID: 2114385793}
 --- !u!4 &1043706832
 Transform:
