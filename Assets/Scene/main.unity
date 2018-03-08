@@ -1801,6 +1801,7 @@ MonoBehaviour:
   ambients:
   - {fileID: 1237244133}
   - {fileID: 710997992}
+  - {fileID: 1858466122}
   gameObjectsToActiveOnPlay:
   - {fileID: 1217989972}
   secondsRateToIncreaseFear: 7
@@ -3491,7 +3492,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858466122}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5f6acb9fc7de43ad8dc90b81b06e023, type: 3}
   m_Name: 
@@ -3943,6 +3944,14 @@ Prefab:
         type: 2}
       propertyPath: m_Shadows.m_Strength
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426165667536388, guid: 1e8b67dd9329041829a10eec41e64651, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426165667536388, guid: 1e8b67dd9329041829a10eec41e64651, type: 2}
+      propertyPath: m_Name
+      value: CorriderLightAmbient
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114195284542141932, guid: 1e8b67dd9329041829a10eec41e64651, type: 2}
