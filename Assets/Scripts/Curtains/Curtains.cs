@@ -5,7 +5,7 @@ using UnityEngine;
 public class Curtains : MonoBehaviour {
 
     string curtainClosing = "CurtainClose";
-    string curtainOpening = "CurtainOpen";
+    string curtainOpening = "OpenCurtain";
     Animator anim;
     public float speed;
     public bool isCurtainOpen { get; private set; }
@@ -23,19 +23,19 @@ public class Curtains : MonoBehaviour {
     private void OnMouseDown()
     {
         Debug.Log("Curtain click");
-        anim.Play(curtainOpening);
+        anim.Play(curtainClosing);
         isCurtainOpen = true;
     }
 
     private void OnMouseExit()
     {
-        anim.Play(curtainClosing);
+        anim.Play(curtainOpening);
         isCurtainOpen = false;
     }
 
     private void OnMouseUp()
     {
-        anim.Play(curtainClosing);
+        anim.Play(curtainOpening);
         isCurtainOpen = false;
     }
 
