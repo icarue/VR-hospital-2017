@@ -14,10 +14,16 @@ public class FearShakeController : MonoBehaviour {
     float currentRough = 0;
 
     bool switchBetweenMagAndRough = false;
-    CameraShaker instance = CameraShaker.Instance;
+    CameraShakeInstance shaker;
+
+    private void Start()
+    {
+        shaker = new CameraShakeInstance(5, 5);
+    }
 
     public void increaseCameraShake()
     {
+
         if (switchBetweenMagAndRough)
         {
             currentMag += 0.5f;
@@ -25,8 +31,8 @@ public class FearShakeController : MonoBehaviour {
         {
             currentRough += 0.5f;
         }
-        CameraShaker.Instance.StartShake(currentMag, currentRough, 0.5f);
-        
+        shaker.StartFadeOut(2f);
+        shaker = CameraShaker.Instance.StartShake(currentMag, currentRough, 0.5f);
         switchBetweenMagAndRough = !switchBetweenMagAndRough;
     }
 
@@ -34,6 +40,6 @@ public class FearShakeController : MonoBehaviour {
     {
         currentMag = 0;
         currentRough = 0;
-        CameraShaker.Instance.StartShake(currentMag, currentRough, 2);
+        shaker.StartFadeOut(2f);
     }
 }
