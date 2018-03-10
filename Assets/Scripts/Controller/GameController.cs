@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour {
 	bool monsterActivated = false;
     bool ambientActivated = false;
 
+    //Game Status
+    GameStatus status;
+
 	public void Awake()
 	{
 		if(instance == null)
@@ -37,9 +40,15 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		timerUntilNextMonster = Random.Range (5, 10);
+        setVariables();
         setupDelegates();
         activateGameObjects();
+    }
+
+    void setVariables()
+    {
+        timerUntilNextMonster = Random.Range(5, 10);
+        status = GetComponent<GameStatus>();
     }
 
     void setupDelegates()
@@ -64,6 +73,9 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //If it's anything other than in game - nothing will happen
+        if (status.currentStatus != Status.InGame) { return; }
+
 		if (!monsterActivated) {
 			timerUntilNextMonster -= Time.deltaTime;
 
