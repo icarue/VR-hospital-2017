@@ -15,7 +15,7 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		if (eventData.position.y < 1200) {
+        if (eventData.position.y < 800) {
 			GetComponent<RectTransform> ().offsetMax = new Vector2 (0, eventData.position.y);
 		}
 	}
