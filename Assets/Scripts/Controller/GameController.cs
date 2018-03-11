@@ -22,8 +22,8 @@ public class GameController : MonoBehaviour {
 	bool monsterActivated = false;
     bool ambientActivated = false;
 
-
-	public void Awake()
+    #region MonoDevelop
+    public void Awake()
 	{
 		if(instance == null)
 		{
@@ -38,8 +38,43 @@ public class GameController : MonoBehaviour {
         InitGame();
 	}
 
-	// Use this for initialization
-	void InitGame(){
+	
+	
+	// Update is called once per frame
+	void Update () {
+        //If it's anything other than in game - nothing will happen
+		if (GameStatus.instance.currentStatus != Status.InGame) { return; }
+
+		if (!monsterActivated) {
+			timerUntilNextMonster -= Time.deltaTime;
+
+            if (timerUntilNextMonster < 0)
+            {
+                monsterActivated = true;
+                int index = selectMonster();
+                monsters[index].GetComponent<Monster>().launchAttack();
+            }
+
+            //Ambient shows up while waiting for monster
+            if (!ambientActivated)
+            {
+                ambientActivated = true;
+                int index = selectAmbient();
+                ambients[index].GetComponent<Ambient>().StartAmb();
+            }
+        } else
+        {
+            increaseFear();   
+        } 
+	}
+
+    #endregion
+
+    #region setup
+
+    // Use this for initialization
+    void InitGame()
+    {
         setVariables();
         setupDelegates();
         activateGameObjects();
@@ -65,31 +100,17 @@ public class GameController : MonoBehaviour {
     }
 
     //Any Deactivated gameobjects will be activated
-	void activateGameObjects(){
-		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++) {
-			gameObjectsToActiveOnPlay [i].SetActive (true);
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        //If it's anything other than in game - nothing will happen
-		if (GameStatus.instance.currentStatus != Status.InGame) { return; }
-
-		if (!monsterActivated) {
-			timerUntilNextMonster -= Time.deltaTime;
-
-            if (timerUntilNextMonster < 0)
-            {
-                monsterActivated = true;
-                int index = selectMonster();
-                monsters[index].GetComponent<Monster>().launchAttack();
-            }
-        } else
+    void activateGameObjects()
+    {
+        for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++)
         {
-            increaseFear();   
-        } 
-	}
+            gameObjectsToActiveOnPlay[i].SetActive(true);
+        }
+    }
+
+    #endregion
+
+    #region Fear
 
     void increaseFear()
     {
@@ -102,9 +123,10 @@ public class GameController : MonoBehaviour {
             secondsPassed = 0;
         }
     }
+    #endregion
 
-
-	void setTimeUntilNextMonster() {
+    #region Monsters
+    void setTimeUntilNextMonster() {
 		timerUntilNextMonster = Random.Range (5, 10);
 	}
 
@@ -113,20 +135,32 @@ public class GameController : MonoBehaviour {
 		setTimeUntilNextMonster ();
 	}
 
-    void setAmbientActivatedFalse()
-    {
-        ambientActivated = false;
-    }
-	
-
     //Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
 		return Random.Range (0, max);
 	}
+    #endregion
 
-	#region Game States
-	public void StartGame() {
+    #region Ambient
+
+
+    void setAmbientActivatedFalse()
+    {
+        ambientActivated = false;
+    }
+
+    int selectAmbient()
+    {
+        int max = ambients.Length;
+        return Random.Range(0, max);
+    }
+
+    #endregion
+
+
+    #region Game States
+    public void StartGame() {
 		//Set State
 		GameStatus.instance.currentStatus = Status.InGame;
 		UserInterfaceController.instance.PlayGame ();
