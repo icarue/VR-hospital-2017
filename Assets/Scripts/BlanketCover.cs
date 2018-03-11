@@ -26,7 +26,6 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
 	public void OnPointerUp(PointerEventData eventData){
 		shouldblanketGoDown = true;
-		Debug.Log ("Pointer Up");
 	}
 
 	void Update() {

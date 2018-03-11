@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -22,8 +23,6 @@ public class GameController : MonoBehaviour {
 	bool monsterActivated = false;
     bool ambientActivated = false;
 
-    //Game Status
-    GameStatus status;
 
 	public void Awake()
 	{
@@ -48,7 +47,6 @@ public class GameController : MonoBehaviour {
     void setVariables()
     {
         timerUntilNextMonster = Random.Range(5, 10);
-        status = GetComponent<GameStatus>();
     }
 
     void setupDelegates()
@@ -74,7 +72,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //If it's anything other than in game - nothing will happen
-        if (status.currentStatus != Status.InGame) { return; }
+		if (GameStatus.instance.currentStatus != Status.InGame) { return; }
 
 		if (!monsterActivated) {
 			timerUntilNextMonster -= Time.deltaTime;
@@ -124,4 +122,24 @@ public class GameController : MonoBehaviour {
 		int max = monsters.Length;
 		return Random.Range (0, max);
 	}
+
+	#region Game States
+
+	public void StartGame() {
+		//Set State
+		GameStatus.instance.currentStatus = Status.InGame;
+		UserInterfaceController.instance.PlayGame ();
+	}
+
+	public void EndGame() {
+		//Set the State
+		GameStatus.instance.currentStatus = Status.EndGame;
+		UserInterfaceController.instance.SetGameOvePanel();
+	}
+
+	public void ResetScene() {
+		SceneManager.LoadScene (0);
+	}
+
+	#endregion
 }

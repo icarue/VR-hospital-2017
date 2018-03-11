@@ -12,8 +12,6 @@ public class GyroCamera : MonoBehaviour
     private Transform _rawGyroRotation;
     private float _tempSmoothing;
 
-    public Text attitudeText;
-
     // SETTINGS
     [SerializeField] private float _smoothing = 1f;
 
@@ -47,7 +45,6 @@ public class GyroCamera : MonoBehaviour
         {
             _rawGyroRotation.eulerAngles = new Vector3(_rawGyroRotation.eulerAngles.x, 270, _rawGyroRotation.eulerAngles.z);
         }
-        attitudeText.text = _rawGyroRotation.eulerAngles.ToString();
 
         //_rawGyroRotation.rotation = Quaternion.identity;
 

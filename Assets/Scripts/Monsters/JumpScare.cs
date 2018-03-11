@@ -18,8 +18,6 @@ public class JumpScare : MonoBehaviour {
     public float Roughness = 5;
     public float FadeInTime = 0.1f;
 
-	[SerializeField]
-	GameObject GameOverScreen;
     [SerializeField]
     GameObject crawler;
 
@@ -42,17 +40,9 @@ public class JumpScare : MonoBehaviour {
         //Shake the screen
         shakeEnemy();
 
-        //Disable the Mouse look
-#if UNITY_EDITOR
-        GetComponent<SmoothMouseLook>().enabled = false;
-#endif
-        GetComponent<RotateCamera>().enabled = false;
-        GetComponent<GyroCamera>().enabled = false;
-
-
         //Black Screen
-        Invoke("blackScreen", 1);
-
+		StartCoroutine("SetGameOverScreen");
+	
         //Add Audio
         crawler.GetComponent<AudioSource>().Play();
     }
@@ -70,15 +60,12 @@ public class JumpScare : MonoBehaviour {
             }
             gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.Euler(Vector3.zero), step);
         }
-
     }
 
-    void blackScreen()
-    {
-		GameOverScreen.GetComponent<Image>().color = new Color(0, 0, 0, 255);
-		GameOverScreen.GetComponent<RectTransform> ().localScale = new Vector3 (1, 1, 1);
-
-    }
+	IEnumerator SetGameOverScreen() {
+		yield return new WaitForSeconds (2);
+		GameController.instance.EndGame ();
+	}
 
     void shakeEnemy()
     {
