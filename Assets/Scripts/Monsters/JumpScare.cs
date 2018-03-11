@@ -63,7 +63,7 @@ public class JumpScare : MonoBehaviour {
     }
 
 	IEnumerator SetGameOverScreen() {
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (1);
 		GameController.instance.EndGame ();
 	}
 

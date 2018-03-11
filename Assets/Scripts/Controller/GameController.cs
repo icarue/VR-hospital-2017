@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
         setVariables();
         setupDelegates();
         activateGameObjects();
+		UserInterfaceController.instance.setupPanels ();
     }
 
     void setVariables()
@@ -124,7 +125,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	#region Game States
-
 	public void StartGame() {
 		//Set State
 		GameStatus.instance.currentStatus = Status.InGame;
@@ -138,8 +138,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ResetScene() {
+		GameStatus.instance.currentStatus = Status.MainMenu;
+		UserInterfaceController.instance.setupPanels ();
 		SceneManager.LoadScene (0);
 	}
-
 	#endregion
 }

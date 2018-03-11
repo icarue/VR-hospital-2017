@@ -28,6 +28,10 @@ public class TimerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameStatus.instance.currentStatus != Status.InGame) {
+			return;
+		}
+
         time += Time.deltaTime;
         if (time > RealLifeSecondsPerMinute)
         {

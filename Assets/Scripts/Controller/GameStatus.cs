@@ -12,7 +12,7 @@ public enum Status{
 public class GameStatus : MonoBehaviour {
 
 	public static GameStatus instance;
-	public Status currentStatus;
+	public Status currentStatus = Status.MainMenu;
 
 	public void Awake()
 	{
@@ -27,14 +27,7 @@ public class GameStatus : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	// Use this for initialization
-	void Start () {
-        currentStatus = Status.MainMenu;
-	}
-
 	public bool isInGame(){
 		return currentStatus == Status.InGame;
 	}
-	
-	
 }

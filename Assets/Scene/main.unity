@@ -2181,6 +2181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMenuPanel: {fileID: 2000404738}
   GameUI: {fileID: 1429620954}
+  GamePlayUI: {fileID: 2014055525}
   GameOverUI: {fileID: 211544202}
   GameOverScreen: {fileID: 1002139753}
 --- !u!1 &1104824055
