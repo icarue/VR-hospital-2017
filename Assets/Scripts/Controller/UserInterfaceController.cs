@@ -8,14 +8,14 @@ public class UserInterfaceController : MonoBehaviour {
 	GameObject MainMenuPanel;
 	[SerializeField]
 	GameObject GameUI;
-
-
-	[SerializeField]
-	GameObject GamePlayUI;
 	[SerializeField]
 	GameObject GameOverUI;
+
+
 	[SerializeField]
 	GameObject GameOverScreen;
+	[SerializeField]
+	GameObject GameOverPanel;
 
 	public static UserInterfaceController instance;
 
@@ -38,26 +38,28 @@ public class UserInterfaceController : MonoBehaviour {
 
 	public void PlayGame() {
 		GameUI.SetActive (true);
-		GamePlayUI.SetActive (true);
 		MainMenuPanel.SetActive (false);
+		GameOverUI.SetActive (false);
 	}
 
 	public void SetGameOvePanel() {
-		GameUI.SetActive (true);
-		GamePlayUI.SetActive (false);
+		GameUI.SetActive (false);
+		GameOverUI.SetActive (true);
 		GameOverScreen.SetActive (true);
+
 		StartCoroutine ("SetPanelAfter");
+	}
+
+	IEnumerator SetPanelAfter(){ 
+		yield return new WaitForSeconds (2);
+		GameOverPanel.SetActive (true);
 	}
 
 	public void setupPanels() {
 		MainMenuPanel.SetActive (true);
 		GameUI.SetActive (false);
-		GamePlayUI.SetActive (false);
-		GameOverScreen.SetActive (false);
+		GameOverUI.SetActive (false);
 	}
 
-	IEnumerator SetPanelAfter(){ 
-		yield return new WaitForSeconds (2);
-		GameOverUI.SetActive (true);
-	}
+
 }
