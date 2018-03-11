@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-	public static GameController instance;
+	public static GameController instance = null;
 
 	[SerializeField]
 	private GameObject[] monsters;
@@ -30,24 +29,26 @@ public class GameController : MonoBehaviour {
 		{
 			instance = this;
 		}
-		else if(instance != null)
+		else if(instance != this)
 		{
 			Destroy(this.gameObject);
 		}
 		DontDestroyOnLoad(this.gameObject);
+
+        InitGame();
 	}
 
 	// Use this for initialization
-	void Start () {
+	void InitGame(){
         setVariables();
         setupDelegates();
         activateGameObjects();
-		UserInterfaceController.instance.setupPanels ();
     }
 
     void setVariables()
     {
         timerUntilNextMonster = Random.Range(5, 10);
+        setMonsterGameObjectActive(false);
     }
 
     void setupDelegates()
@@ -134,13 +135,40 @@ public class GameController : MonoBehaviour {
 	public void EndGame() {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
-		UserInterfaceController.instance.SetGameOvePanel();
+        UserInterfaceController.instance.GameOver();
 	}
 
 	public void ResetScene() {
-		GameStatus.instance.currentStatus = Status.MainMenu;
-		UserInterfaceController.instance.setupPanels ();
-		SceneManager.LoadScene (0);
+        // Game Controller
+        reset();
+        //Fear Shake Controller
+        GetComponent<FearShakeController>().resetShake();
+        //Game Status
+        GameStatus.instance.currentStatus = Status.MainMenu;
+        //UI Controller
+        UserInterfaceController.instance.setupUI();
+        //Timer Controller
+        GetComponent<TimerController>().resetTime();
 	}
-	#endregion
+
+    private void reset()
+    {
+        setMonsterActivatedFalse();
+        setVariables();
+
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            monsters[i].GetComponent<Monster>().resetMonster();
+            monsters[i].SetActive(false);
+        }
+    }
+
+    private void setMonsterGameObjectActive(bool set)
+    {
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            monsters[i].SetActive(set);
+        }
+    }
+    #endregion
 }

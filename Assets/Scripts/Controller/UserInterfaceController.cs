@@ -5,7 +5,7 @@ using UnityEngine;
 public class UserInterfaceController : MonoBehaviour {
 
 	[SerializeField]
-	GameObject MainMenuPanel;
+	GameObject MenuUI;
 	[SerializeField]
 	GameObject GameUI;
 	[SerializeField]
@@ -32,34 +32,64 @@ public class UserInterfaceController : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	void Start() {
-		setupPanels ();
+	void Start()
+    {
+        setupUI();
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        setupUI();
+    }
+
+    public void PlayGame() {
+        setupUI();
+    }
+
+	public void GameOver() {
+        setupUI();
+        GameOverScreen.SetActive(true);
+        StartCoroutine ("SetPanelAfter");
 	}
 
-	public void PlayGame() {
-		GameUI.SetActive (true);
-		MainMenuPanel.SetActive (false);
-		GameOverUI.SetActive (false);
-	}
+    IEnumerator SetPanelAfter()
+    {
+        yield return new WaitForSeconds(2);
+        GameOverPanel.SetActive(true);
+    }
 
-	public void SetGameOvePanel() {
-		GameUI.SetActive (false);
-		GameOverUI.SetActive (true);
-		GameOverScreen.SetActive (true);
+    void disableGameOver()
+    {
+        GameOverPanel.SetActive(false);
+        GameOverScreen.SetActive(false);
+    }
 
-		StartCoroutine ("SetPanelAfter");
-	}
+    public void setupUI() {
+        disableAllUI();
+        disableGameOver();
+        switch (GameStatus.instance.currentStatus)
+        {
+            case Status.MainMenu:
+                MenuUI.SetActive(true);
+                break;
+            case Status.InGame:
+                GameUI.SetActive(true);
+                break;
+            case Status.EndGame:
+                GameOverUI.SetActive(true);
+                break;
+            default:
+                MenuUI.SetActive(true);
+                break;
+        }
+    }
 
-	IEnumerator SetPanelAfter(){ 
-		yield return new WaitForSeconds (2);
-		GameOverPanel.SetActive (true);
-	}
+    void disableAllUI()
+    {
+        GameOverUI.SetActive(false);
+        GameUI.SetActive(false);
+        MenuUI.SetActive(false);
+    }
 
-	public void setupPanels() {
-		MainMenuPanel.SetActive (true);
-		GameUI.SetActive (false);
-		GameOverUI.SetActive (false);
-	}
-
-
+    
 }

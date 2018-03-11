@@ -15,9 +15,12 @@ public class TimerController : MonoBehaviour {
     [SerializeField]
     float RealLifeSecondsPerMinute;
 
+    [SerializeField]
+    GameObject timerText;
+
 	// Use this for initialization
 	void Start () {
-        textMesh = GetComponent<TextMesh>();
+        textMesh = timerText.GetComponent<TextMesh>();
 	}
 
     void setup()
@@ -48,11 +51,16 @@ public class TimerController : MonoBehaviour {
 
     void incrementTime()
     {
-        Debug.Log(currentTime);
         currentTime++;
         if (currentTime > 12)
         {
             currentTime = 1;
         }
+    }
+
+    public void resetTime()
+    {
+        setup();
+        setTextMesh();
     }
 }

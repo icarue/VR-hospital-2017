@@ -88,7 +88,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1054439603458540
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4486569663764266}
   m_Layer: 0
   m_Name: ShinyEyes
-  m_TagString: CorridorMonster
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -715,9 +715,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4510761210780754}
-  - component: {fileID: 114540934768087724}
+  - component: {fileID: 114963204612858026}
   m_Layer: 0
-  m_Name: CeilingCrawler
+  m_Name: CorriderCrawler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1278,14 +1278,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1054439603458540}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.83, y: 4.96, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071067, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: -0.008299999, y: 0, z: -0.017850546}
+  m_LocalScale: {x: 0.01, y: 0.009999998, z: 0.009999998}
   m_Children:
   - {fileID: 4057205267358964}
   - {fileID: 4948084866561370}
-  m_Father: {fileID: 4510761210780754}
-  m_RootOrder: 2
+  m_Father: {fileID: 4578742806218084}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4496035040893280
 Transform:
@@ -1320,16 +1320,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736571103714086}
-  m_LocalRotation: {x: -0.44376794, y: -0.41672584, z: 0.57832974, w: 0.5430878}
-  m_LocalPosition: {x: -0.62, y: 20.41, z: -7.4}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -28.900043, y: 0.4099989, z: -6.2335644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4373447719419684}
   - {fileID: 4578742806218084}
-  - {fileID: 4486569663764266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -75, z: 93.6}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4531417899094484
 Transform:
   m_ObjectHideFlags: 1
@@ -1353,7 +1352,8 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 6.7450547, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children: []
+  m_Children:
+  - {fileID: 4486569663764266}
   m_Father: {fileID: 4510761210780754}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1919,7 +1919,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114540934768087724
+--- !u!114 &114963204612858026
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1927,16 +1927,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736571103714086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7832c0cd01364a24da0100f1b813d7f8, type: 3}
+  m_Script: {fileID: 11500000, guid: fe31d530cb9eac24f855e8681939296f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraObject: {fileID: 0}
-  CeilingTile: {fileID: 0}
-  blanketObj: {fileID: 0}
-  amountCeilingMoves: {x: 0, y: 0, z: 3}
-  ceilingSpeed: 5
-  amountMonsterMoves: {x: 0, y: 0, z: 3}
-  monsterHideSpeed: 3
+  localCurtain: {fileID: 0}
+  LeftDoorHinge: {fileID: 0}
+  monster: {fileID: 1426524718300464}
 --- !u!137 &137322582567006084
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

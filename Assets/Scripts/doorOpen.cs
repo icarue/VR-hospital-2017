@@ -16,6 +16,11 @@ public class doorOpen : MonoBehaviour {
 
     private void Awake()
     {
+        setupDoor();
+    }
+
+    public void setupDoor()
+    {
         userStillPlaying = true;
         loseDoorAngle = openDoorAngle + Random.Range(6, 10);
     }

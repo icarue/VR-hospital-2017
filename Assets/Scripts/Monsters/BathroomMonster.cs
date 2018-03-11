@@ -32,9 +32,14 @@ public class BathroomMonster : Monster {
     float speedOfDisappearance = 1;
     Vector3 disappearDestination;
 
-	protected override void setupMonsterToStartAttack() {
+    private void Awake()
+    {
+        base.originalPosition = transform.position;
+        door = DoorHinge.GetComponent<doorOpen>();
+    }
+
+    protected override void setupMonsterToStartAttack() {
 		//Door
-		door = DoorHinge.GetComponent<doorOpen>();
 		doorOpenDuration = Random.Range(3, 5);
 
 		//Seconds for user to close the door
@@ -113,5 +118,20 @@ public class BathroomMonster : Monster {
         {
             currentStage = MonsterStage.UserFailed;
         }
+    }
+
+    public override void resetMonster()
+    {
+        //Door needs to be set closed
+        DoorHinge.transform.eulerAngles = Vector3.zero;
+
+        //Set Monster Position
+        resetPosition();
+
+        //Current Stage
+        currentStage = MonsterStage.DoorOpen;
+
+        //Setup Door
+        door.setupDoor();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class CeilingMonster : Monster {
@@ -41,15 +40,20 @@ public class CeilingMonster : Monster {
     }
 
     MonsterStages currentStage ;
-
+    #region Mono 
     void Awake()
     {
+        blanket = blanketObj.GetComponent<BlanketCover>();
+        base.originalPosition = transform.position;
         CeilingOriginal = CeilingTile.transform.localPosition;
     }
 
+    #endregion
+
+
     protected override void setTimeUntilJumpScare()
     {
-        timeUntilJumpScare = Random.Range(2, 4);
+        timeUntilJumpScare = UnityEngine.Random.Range(2, 4);
     }
 
     protected override void setupMonsterToStartAttack()
@@ -68,8 +72,8 @@ public class CeilingMonster : Monster {
 
     void TimersSetup()
     {
-        TimeUntilUserLoses = Random.Range(5, 8);
-        TimeUntilUserWins = Random.Range(5, 8);
+        TimeUntilUserLoses = UnityEngine.Random.Range(5, 8);
+        TimeUntilUserWins = UnityEngine.Random.Range(5, 8);
         currentTimeUntilWin = TimeUntilUserWins;
     }
 
@@ -79,10 +83,6 @@ public class CeilingMonster : Monster {
         monsterTarget = monsterOriginal + amountMonsterMoves;
     }
 
-    void Start()
-    {
-        blanket = blanketObj.GetComponent<BlanketCover>();
-    }
 
     // Update is called once per frame
     void Update () {
@@ -156,5 +156,20 @@ public class CeilingMonster : Monster {
         {
             currentStage = MonsterStages.JumpScare;
         }
+    }
+
+    public override void resetMonster()
+    {
+        //Set Ceiling Tile
+        CeilingTile.transform.localPosition = CeilingOriginal;
+
+
+        //Reset Monster position
+        transform.position = base.originalPosition;
+        Debug.Log("Set Original Position");
+        Debug.Log(base.originalPosition);
+
+        //Set Current stage
+        currentStage = MonsterStages.OpenTile;
     }
 }

@@ -12,17 +12,20 @@ public class JumpScare : MonoBehaviour {
 
     Vector3 destination;
 
-    public float speedOfJumpScare;
+    float speedOfJumpScare = 50f;
 
-    public float Magnitude = 10f;
-    public float Roughness = 5;
-    public float FadeInTime = 0.1f;
+    float Magnitude = 2f;
+    float Roughness = 10f;
+    float FadeInTime = 0.1f;
 
     [SerializeField]
     GameObject crawler;
 
-    private void Start()
+    CameraShakeInstance shaker;
+
+    void resetScene()
     {
+        crawler.SetActive(false);
         spawnLocation = new Vector3(0, -9, 2.86f);
         spawnRotation = new Vector3(0, -90, 0);
 
@@ -30,9 +33,17 @@ public class JumpScare : MonoBehaviour {
         destination.y = -4.8f;
     }
 
+    private void Start()
+    {
+        resetScene();
+    }
+
     public void startJumpScare()
     {
+        //Turn on crawler
         crawler.SetActive(true);
+
+        //Set it's position/rotation
         crawler.transform.localPosition = spawnLocation;
         crawler.transform.localRotation = Quaternion.Euler(spawnRotation);
         endGame = true;
@@ -64,11 +75,13 @@ public class JumpScare : MonoBehaviour {
 
 	IEnumerator SetGameOverScreen() {
 		yield return new WaitForSeconds (1);
-		GameController.instance.EndGame ();
+        shaker.StartFadeOut(1f);
+        resetScene();
+        GameController.instance.EndGame ();
 	}
 
     void shakeEnemy()
     {
-        CameraShaker.Instance.StartShake(Magnitude, Roughness, FadeInTime);
+        shaker = CameraShaker.Instance.StartShake(Magnitude, Roughness, FadeInTime);
     }
 }

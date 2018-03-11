@@ -6,8 +6,15 @@ using UnityEngine;
 //Enemies must have a timer til they activate, a method to make them attack, and a way for them to state they are finished.
 public abstract class Monster : MonoBehaviour {
 
-	//Camera Object
-	[SerializeField]
+    protected Vector3 originalPosition;
+
+    protected virtual void resetPosition()
+    {
+        transform.position = originalPosition;
+    }
+
+    //Camera Object
+    [SerializeField]
 	protected GameObject cameraObject;
 
 	//Delegate
@@ -40,4 +47,5 @@ public abstract class Monster : MonoBehaviour {
 	}
 
 	protected abstract void setupMonsterToStartAttack ();
+    public abstract void resetMonster();
 }

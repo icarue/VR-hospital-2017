@@ -33,6 +33,7 @@ public class FearShakeController : MonoBehaviour {
         }
         shaker.StartFadeOut(2f);
         shaker = CameraShaker.Instance.StartShake(currentMag, currentRough, 0.5f);
+        shaker.DeleteOnInactive = true;
         switchBetweenMagAndRough = !switchBetweenMagAndRough;
     }
 
@@ -41,5 +42,6 @@ public class FearShakeController : MonoBehaviour {
         currentMag = 0;
         currentRough = 0;
         shaker.StartFadeOut(2f);
+        
     }
 }

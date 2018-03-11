@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,27 +32,32 @@ public class CorridorMonster : Monster {
     float openDoorAngle = -40;
     float timeForDoorToOpen;
 
+    //Monster Object
+    [SerializeField]
+    GameObject monster;
 
-	void Start() {
-		door = LeftDoorHinge.GetComponent<doorOpen>();
-		curtain = localCurtain.GetComponent<Curtains>();
-	}
+    private void Awake()
+    {
+        base.originalPosition = transform.position;
+        door = LeftDoorHinge.GetComponent<doorOpen>();
+        curtain = localCurtain.GetComponent<Curtains>();
+    }
 
 	protected override void setupMonsterToStartAttack ()
 	{
 		//Curtains
-		timeForCurtainsToStayOpen = Random.Range(5, 8);
+		timeForCurtainsToStayOpen = UnityEngine.Random.Range(5, 8);
 		currentTimeToStayOpen = timeForCurtainsToStayOpen;
-		timeForUserToLose = timeForCurtainsToStayOpen + Random.Range(3, 5);
+		timeForUserToLose = timeForCurtainsToStayOpen + UnityEngine.Random.Range(3, 5);
 
 		//Door
-		timeForDoorToOpen = Random.Range(2, 3);
+		timeForDoorToOpen = UnityEngine.Random.Range(2, 3);
 
 		currentStage = MonsterStages.UserInteraction;
 	}
 
 	protected override void setTimeUntilJumpScare(){
-		timeUntilJumpScare = Random.Range(0, 2)+timeForDoorToOpen;
+		timeUntilJumpScare = UnityEngine.Random.Range(0, 2)+timeForDoorToOpen;
 	}
 		
     // Update is called once per frame
@@ -96,10 +102,26 @@ public class CorridorMonster : Monster {
     void doorOpen(){
         door.setDoorAngleWithDuration(openDoorAngle,timeForDoorToOpen);
         currentStage = MonsterStages.JumpScare;
-		//only deactive mesh
-        foreach (GameObject model in GameObject.FindGameObjectsWithTag("CorridorMonster")) {
-            model.SetActive(false);
-        }
+        //only deactive mesh
+        setModelActive(false);
+    }
+
+    public override void resetMonster()
+    {
+        //Set Door
+        LeftDoorHinge.transform.eulerAngles = new Vector3(0,-90,0);
+
+        //Turn on all Models again
+        setModelActive(true);
+
+        //Stage
+        currentStage = MonsterStages.UserInteraction;
+    }
+
+
+    void setModelActive(bool on)
+    {
+        monster.SetActive(on);
     }
 
 }
