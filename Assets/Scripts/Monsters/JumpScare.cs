@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using EZCameraShake;
 
 public class JumpScare : MonoBehaviour {
-
-    GameObject crawler;
     bool endGame = false;
 
     Vector3 spawnLocation;
@@ -22,6 +20,8 @@ public class JumpScare : MonoBehaviour {
 
 	[SerializeField]
 	GameObject GameOverScreen;
+    [SerializeField]
+    GameObject crawler;
 
     private void Start()
     {
@@ -30,13 +30,11 @@ public class JumpScare : MonoBehaviour {
 
         destination = spawnLocation;
         destination.y = -4.8f;
-
-        crawler = Resources.Load("crawler") as GameObject;
     }
 
     public void startJumpScare()
     {
-        crawler = Instantiate(crawler, gameObject.transform);
+        crawler.SetActive(true);
         crawler.transform.localPosition = spawnLocation;
         crawler.transform.localRotation = Quaternion.Euler(spawnRotation);
         endGame = true;
@@ -45,7 +43,12 @@ public class JumpScare : MonoBehaviour {
         shakeEnemy();
 
         //Disable the Mouse look
-        gameObject.GetComponent<SmoothMouseLook>().enabled = false;
+#if UNITY_EDITOR
+        GetComponent<SmoothMouseLook>().enabled = false;
+#endif
+        GetComponent<RotateCamera>().enabled = false;
+        GetComponent<GyroCamera>().enabled = false;
+
 
         //Black Screen
         Invoke("blackScreen", 1);
