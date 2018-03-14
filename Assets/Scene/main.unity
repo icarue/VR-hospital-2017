@@ -2962,8 +2962,8 @@ MonoBehaviour:
   SlidingTile: {fileID: 0}
   CurtainsOpen: {fileID: 8300000, guid: dcce08863ecb94525b80fa3e838b481b, type: 3}
   CurtainsClose: {fileID: 8300000, guid: f32b0573e842d4944bf942a8e9665980, type: 3}
-  SwitchOnLight: {fileID: 0}
-  SwitchOffLight: {fileID: 0}
+  SwitchOnLight: {fileID: 8300000, guid: 277f6e609801046a88d297293e43dcee, type: 3}
+  SwitchOffLight: {fileID: 8300000, guid: d4999c729ffc34c7b9ad7b2ec74a95d1, type: 3}
   ButtonClicks: {fileID: 8300000, guid: 6dc1852323a9f4a2191d2c4fbc9a30f8, type: 3}
   StartGame: {fileID: 8300000, guid: 6cfcf093ddc654850909ec632cfc026e, type: 3}
 --- !u!82 &1046931279
