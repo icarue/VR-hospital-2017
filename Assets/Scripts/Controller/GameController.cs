@@ -10,10 +10,8 @@ public class GameController : MonoBehaviour {
 	private GameObject[] monsters;
     [SerializeField]
     private GameObject[] ambients;
-	[SerializeField]
-	private GameObject[] gameObjectsToActiveOnPlay;
     [SerializeField]
-    private float secondsRateToIncreaseFear;
+	private float RateToIncreaseFear;
     [SerializeField]
     private GameObject lamp;
     float secondsPassed = 0;
@@ -77,7 +75,6 @@ public class GameController : MonoBehaviour {
     {
         setVariables();
         setupDelegates();
-        activateGameObjects();
     }
 
     void setVariables()
@@ -99,14 +96,6 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    //Any Deactivated gameobjects will be activated
-    void activateGameObjects()
-    {
-        for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++)
-        {
-            gameObjectsToActiveOnPlay[i].SetActive(true);
-        }
-    }
 
     #endregion
 
@@ -115,7 +104,7 @@ public class GameController : MonoBehaviour {
     void increaseFear()
     {
         secondsPassed += Time.deltaTime;
-        if (secondsPassed > secondsRateToIncreaseFear && 
+        if (secondsPassed > RateToIncreaseFear && 
             !lamp.GetComponent<BedSideLight>().isLightOn)
         {
             //Increase camera shake
@@ -164,12 +153,16 @@ public class GameController : MonoBehaviour {
 		//Set State
 		GameStatus.instance.currentStatus = Status.InGame;
 		UserInterfaceController.instance.PlayGame ();
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.StartGame,TYPE.UI,1.0f);
 	}
 
 	public void EndGame() {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
         UserInterfaceController.instance.GameOver();
+		//AUDIO
+		AudioController.instance.STOPALL();
 	}
 
 	public void ResetScene() {

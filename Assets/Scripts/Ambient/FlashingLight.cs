@@ -27,11 +27,15 @@ public class FlashingLight : Ambient {
     public override void StartAmb()
     {
         gameObject.SetActive(true);
+		//AUDIO
+		AudioController.instance.PLAY (AudioController.instance.AUDIO.BrokenLight, TYPE.AMBIENT, 1.0f);
     }
 
     IEnumerator waitAndDeactivate()
     {
         yield return new WaitForSeconds(waitTime);
+		//AUDIO
+		AudioController.instance.STOP(TYPE.AMBIENT);
         endAmb();
         gameObject.SetActive(false);
     }

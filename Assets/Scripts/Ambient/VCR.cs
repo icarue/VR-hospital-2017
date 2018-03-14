@@ -23,6 +23,9 @@ public class VCR : Ambient {
     {
         waitTime = Random.Range(5, maxLastingTime);
         InvokeRepeating("blink", 0f, 0.5f);
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.AlarmClock,TYPE.AMBIENT,1.0f);
+
     }
 
     void blink()
@@ -47,6 +50,8 @@ public class VCR : Ambient {
     {
         yield return new WaitForSeconds(waitTime);
         CancelInvoke("blink");
+		//AUDIO
+		AudioController.instance.STOP(TYPE.AMBIENT);
         endAmb();
         this.enabled = false;
     }

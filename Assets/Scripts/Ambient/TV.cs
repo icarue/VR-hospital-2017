@@ -13,11 +13,15 @@ public class TV : Ambient
     {
         gameObject.SetActive(true);
         StartCoroutine(waitAndDeactivate());
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.StaticTV,TYPE.AMBIENT,1.0f);
     }
 
     IEnumerator waitAndDeactivate()
     {
         yield return new WaitForSeconds(waitTime);
+		//AUDIO
+		AudioController.instance.STOP (TYPE.AMBIENT);
         endAmb();
         gameObject.SetActive(false);
     }

@@ -22,19 +22,24 @@ public class Curtains : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        Debug.Log("Curtain click");
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsClose,TYPE.UI,1.0f);
         anim.Play(curtainClosing);
         isCurtainOpen = true;
     }
 
     private void OnMouseExit()
     {
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI,1.0f);
         anim.Play(curtainOpening);
         isCurtainOpen = false;
     }
 
     private void OnMouseUp()
     {
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI,1.0f);
         anim.Play(curtainOpening);
         isCurtainOpen = false;
     }
