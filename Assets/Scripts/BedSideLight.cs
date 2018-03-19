@@ -17,10 +17,15 @@ public class BedSideLight : MonoBehaviour {
     { 
         isLightOn = !isLightOn;
         spotLight.SetActive(isLightOn);
-        if (isLightOn)
-        {
-            GameController.instance.GetComponent<FearShakeController>().resetShake();
-        }
+		if (isLightOn) {
+			GameController.instance.GetComponent<FearShakeController> ().resetShake ();
+			//AUDIO
+			AudioController.instance.PLAY (AudioController.instance.AUDIO.SwitchOnLight, TYPE.UI, 1.0f);
+		} else {
+			//AUDIO
+			AudioController.instance.PLAY(AudioController.instance.AUDIO.SwitchOffLight,TYPE.UI,1.0f);
+		}
+			
     }
 
 }

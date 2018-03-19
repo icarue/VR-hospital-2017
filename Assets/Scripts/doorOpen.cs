@@ -14,6 +14,9 @@ public class doorOpen : MonoBehaviour {
     public bool userStillPlaying { get; private set; }
     public float loseDoorAngle { get; private set; }
 
+	//Door interaction properties
+	private float glitchDoorCloseDuration = 0.5f;
+
     private void Awake()
     {
         setupDoor();
@@ -47,6 +50,7 @@ public class doorOpen : MonoBehaviour {
     /*                  User Interaction Events                 */
     //When user interacts with the door and tries to close it
     public void tryToCloseTheDoor() {
+		//TOOD - Test this
         float change = Random.Range(0, 100);
         if (change > glitchChance)
         {
@@ -55,20 +59,31 @@ public class doorOpen : MonoBehaviour {
         } else
         {
             setDoorAngleWithDuration(closedDoorAngle, Random.Range(2,4));
+			//AUDIO
+			AudioController.instance.PLAY(AudioController.instance.AUDIO.DoorClose, TYPE.UI);
         }
     }
 
     void glitchToCertainAngle()
     {
         float almostClosedAngle = Random.Range(1, 3);
-        float duration = Random.Range(2, 4);
-        setDoorAngleWithDuration(almostClosedAngle,duration);
-        Invoke("invokeDoorToOpenDoorAngle", duration);
+		//Fail to close door
+		setDoorAngleWithDuration(almostClosedAngle,glitchDoorCloseDuration);
+		StartCoroutine("setGlitchedDoorAngle");
     }
 
     void invokeDoorToOpenDoorAngle() {
         setDoorAngleWithDuration(openDoorAngle,Random.Range(2,4));
     }
+
+	IEnumerator setGlitchedDoorAngle(){
+		//Wait for Door to almost close
+		yield return new WaitForSeconds (glitchDoorCloseDuration);
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.DoorCloseFail, TYPE.UI);
+		float duration = Random.Range (2, 4);
+		setDoorAngleWithDuration (openDoorAngle, duration);
+	}
 
     void invokeInteractionToTrue()
     {

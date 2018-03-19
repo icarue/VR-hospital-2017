@@ -35,7 +35,7 @@ public class AudioController : MonoBehaviour {
 	#endregion
 
 	#region Controls
-	public void PLAY(AudioClip clip, TYPE type, float volume) {
+	public void PLAY(AudioClip clip, TYPE type, float volume = 1.0f) {
 		_audioSource[(int)type].PlayOneShot (clip, volume);
 	}
 
@@ -50,6 +50,10 @@ public class AudioController : MonoBehaviour {
 		for (int i = 0; i < _audioSource.Length; i++) {
 			_audioSource [i].Stop ();
 		}
+	}
+
+	public bool isPlaying(TYPE type){
+		return _audioSource [(int)type].isPlaying;
 	}
 	#endregion
 

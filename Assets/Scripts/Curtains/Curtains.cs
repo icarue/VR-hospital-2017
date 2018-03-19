@@ -23,7 +23,7 @@ public class Curtains : MonoBehaviour {
     private void OnMouseDown()
     {
 		//AUDIO
-		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsClose,TYPE.UI,1.0f);
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsClose,TYPE.UI);
         anim.Play(curtainClosing);
         isCurtainOpen = true;
     }
@@ -31,7 +31,9 @@ public class Curtains : MonoBehaviour {
     private void OnMouseExit()
     {
 		//AUDIO
-		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI,1.0f);
+		if (!AudioController.instance.isPlaying(TYPE.UI)){
+			AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI);
+		}
         anim.Play(curtainOpening);
         isCurtainOpen = false;
     }
@@ -39,7 +41,7 @@ public class Curtains : MonoBehaviour {
     private void OnMouseUp()
     {
 		//AUDIO
-		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI,1.0f);
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI);
         anim.Play(curtainOpening);
         isCurtainOpen = false;
     }

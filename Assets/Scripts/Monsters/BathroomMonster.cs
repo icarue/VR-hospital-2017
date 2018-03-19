@@ -32,11 +32,20 @@ public class BathroomMonster : Monster {
     float speedOfDisappearance = 1;
     Vector3 disappearDestination;
 
+	#region Monodevelop
     private void Awake()
     {
         base.originalPosition = transform.position;
         door = DoorHinge.GetComponent<doorOpen>();
     }
+
+	IEnumerator playDoorCreak() {
+		yield return new WaitForSeconds (0.25f);
+		//AUDIO
+		AudioController.instance.PLAY (AudioController.instance.AUDIO.DoorCreak, TYPE.UI, 1.0f);
+	}
+	#endregion
+
 
     protected override void setupMonsterToStartAttack() {
 		//Door
@@ -50,6 +59,9 @@ public class BathroomMonster : Monster {
 		disappearDestination.y = -2;
 	
 		door.setDoorAngleWithDuration(door.openDoorAngle, doorOpenDuration);
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.DoorOpen, TYPE.MONSTER);
+		StartCoroutine ("playDoorCreak");
 	}
 
 	protected override void setTimeUntilJumpScare() {
@@ -84,6 +96,8 @@ public class BathroomMonster : Monster {
         if (door.canInteractWithDoor)
         {
             currentStage = MonsterStage.DoorCloseChance;
+			//AUDIO
+			AudioController.instance.PLAY (AudioController.instance.AUDIO.PlayingInWater, TYPE.MONSTER);
         }
     }
 
@@ -96,14 +110,14 @@ public class BathroomMonster : Monster {
             //User loses
             door.setUserLost();
             currentStage = MonsterStage.MonsterMovesDown;
-            door.setUserLost();
             door.setDoorAngleWithDuration(door.loseDoorAngle, doorOpenDuration);
+			//AUDIO
+			AudioController.instance.PLAY(AudioController.instance.AUDIO.SinkningInWater,TYPE.MONSTER);
         }
 
         //Check if Door is closed
 		if ((int)DoorHinge.transform.rotation.eulerAngles.y == 0)
         {
-            Debug.Log(secondsBeforeUserLose);
             //User able to close the door
             currentStage = MonsterStage.DoorClosed;
         }

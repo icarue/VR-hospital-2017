@@ -101,6 +101,8 @@ public class CorridorMonster : Monster {
 
     void doorOpen(){
         door.setDoorAngleWithDuration(openDoorAngle,timeForDoorToOpen);
+		//AUDIO
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.DoorCreak,TYPE.MONSTER);
         currentStage = MonsterStages.JumpScare;
         //only deactive mesh
         setModelActive(false);

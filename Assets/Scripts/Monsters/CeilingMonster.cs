@@ -32,6 +32,7 @@ public class CeilingMonster : Monster {
 
     enum MonsterStages
     {
+		AudioSetup,
 		OpenTile,
 		UserInteraction,
 		HideMonster,
@@ -58,10 +59,13 @@ public class CeilingMonster : Monster {
 
     protected override void setupMonsterToStartAttack()
     {
-        MonsterStages currentStage = MonsterStages.OpenTile;
+		currentStage = (MonsterStages)0;
         CeilingPositionSetup();
         TimersSetup();
         MonsterSetup();
+		//Start Audio
+		//AUDIO
+		AudioController.instance.PLAY (AudioController.instance.AUDIO.RunningAttic, TYPE.MONSTER);
     }
 
     void CeilingPositionSetup()
@@ -88,6 +92,9 @@ public class CeilingMonster : Monster {
     void Update () {
         switch (currentStage)
         {
+			case MonsterStages.AudioSetup:
+				audioRunningInAttic ();
+				break;
             case MonsterStages.OpenTile:
                 OpenTile();
                 break;
@@ -106,6 +113,14 @@ public class CeilingMonster : Monster {
         }
 	}
 
+	#region Monster Stages
+	void audioRunningInAttic () {
+		if (!AudioController.instance.isPlaying (TYPE.MONSTER)) {
+			currentStage = MonsterStages.OpenTile;
+			//AUDIO - Run audio of tile sliding
+			AudioController.instance.PLAY(AudioController.instance.AUDIO.SlidingTile, TYPE.MONSTER);
+		}
+	}
 
     void OpenTile()
     {
@@ -158,6 +173,8 @@ public class CeilingMonster : Monster {
         }
     }
 
+	#endregion
+
     public override void resetMonster()
     {
         //Set Ceiling Tile
@@ -170,6 +187,6 @@ public class CeilingMonster : Monster {
         Debug.Log(base.originalPosition);
 
         //Set Current stage
-        currentStage = MonsterStages.OpenTile;
+		currentStage = (MonsterStages)0;
     }
 }

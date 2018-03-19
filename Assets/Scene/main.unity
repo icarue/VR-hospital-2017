@@ -2947,18 +2947,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e286b26ec774b6bb0e69563f065f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoorOpen: {fileID: 0}
-  DoorCreak: {fileID: 0}
-  DoorClose: {fileID: 0}
-  DoorCloseFail: {fileID: 0}
+  DoorOpen: {fileID: 8300000, guid: b86e853138f044bfc8818e65e01110ff, type: 3}
+  DoorCreak: {fileID: 8300000, guid: a34abad56754742bf9447c0974861a7a, type: 3}
+  DoorClose: {fileID: 8300000, guid: 43583a20f853f42d2bd07dfe51051730, type: 3}
+  DoorCloseFail: {fileID: 8300000, guid: 49edd1e1887f1452bb2c268e1574fe7d, type: 3}
   StaticTV: {fileID: 8300000, guid: 80df6d3ad5d564f748b8f59ad7654b04, type: 3}
   AlarmClock: {fileID: 8300000, guid: 888503b5f0e2445a7ab287e90928d920, type: 3}
-  BrokenLight: {fileID: 0}
+  BrokenLight: {fileID: 8300000, guid: d8613ddc8b8834177b98b16cee0510ae, type: 3}
   RunningOutside: {fileID: 0}
   RunningAttic: {fileID: 0}
-  PlayingInWater: {fileID: 0}
-  SinkningInWater: {fileID: 0}
-  UnderTheBed: {fileID: 0}
+  PlayingInWater: {fileID: 8300000, guid: 8cf08e5a8cf6346a89e3f636181c39f2, type: 3}
+  SinkningInWater: {fileID: 8300000, guid: b2ad9dd8fbd1449e68ac5a34be6d2965, type: 3}
+  UnderTheBed: {fileID: 8300000, guid: 307912c4f7b1f41ce8d21e2eb7bf7a92, type: 3}
   SlidingTile: {fileID: 0}
   CurtainsOpen: {fileID: 8300000, guid: dcce08863ecb94525b80fa3e838b481b, type: 3}
   CurtainsClose: {fileID: 8300000, guid: f32b0573e842d4944bf942a8e9665980, type: 3}
@@ -3101,7 +3101,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3125,7 +3125,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &1046931281
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3181,7 +3181,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3205,7 +3205,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!1 &1104824055
 GameObject:
   m_ObjectHideFlags: 0
@@ -5033,7 +5033,7 @@ Prefab:
     - target: {fileID: 114288518061924652, guid: a22aab8cb4738254caef25593eee4e40,
         type: 2}
       propertyPath: glitchChance
-      value: 0.2
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a22aab8cb4738254caef25593eee4e40, type: 2}
