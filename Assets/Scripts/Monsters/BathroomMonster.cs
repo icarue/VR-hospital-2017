@@ -36,6 +36,7 @@ public class BathroomMonster : Monster {
     private void Awake()
     {
         base.originalPosition = transform.position;
+        Debug.Log(base.originalPosition);
         door = DoorHinge.GetComponent<doorOpen>();
     }
 
@@ -139,8 +140,9 @@ public class BathroomMonster : Monster {
         //Door needs to be set closed
         DoorHinge.transform.eulerAngles = Vector3.zero;
 
-        //Set Monster Position
-        resetPosition();
+        //Reset Monster position
+        transform.position = base.originalPosition;
+        Debug.Log(transform.position);
 
         //Current Stage
         currentStage = MonsterStage.DoorOpen;

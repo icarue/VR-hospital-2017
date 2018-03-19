@@ -50,8 +50,6 @@ public class VCR : Ambient {
     {
         yield return new WaitForSeconds(waitTime);
         CancelInvoke("blink");
-		//AUDIO
-		AudioController.instance.STOP(TYPE.AMBIENT);
         endAmb();
         this.enabled = false;
     }

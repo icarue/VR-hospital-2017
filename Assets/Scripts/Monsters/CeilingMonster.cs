@@ -128,6 +128,8 @@ public class CeilingMonster : Monster {
         CeilingTile.transform.localPosition = Vector3.MoveTowards(current, CeilingTarget, ceilingSpeed * Time.deltaTime);
         if (current == CeilingTarget)
         {
+            //AUDIO
+            AudioController.instance.STOP(TYPE.MONSTER);
             currentStage = MonsterStages.UserInteraction;
         }
     }

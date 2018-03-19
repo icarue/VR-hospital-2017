@@ -52,7 +52,7 @@ public class doorOpen : MonoBehaviour {
     public void tryToCloseTheDoor() {
 		//TOOD - Test this
         float change = Random.Range(0, 100);
-        if (change > glitchChance)
+        if (change < glitchChance)
         {
             //Unable to close door
             glitchToCertainAngle();

@@ -10,8 +10,6 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
 
 	public bool isBlanketUp { get; private set; }
-	[SerializeField]
-	float blanketHeightAsUp;
 
 	public void OnDrag(PointerEventData eventData)
 	{
@@ -22,11 +20,13 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 
 	public void OnPointerDown(PointerEventData eventData) {
 		shouldblanketGoDown = false;
-	}
+        isBlanketUp = true;
+    }
 
 	public void OnPointerUp(PointerEventData eventData){
 		shouldblanketGoDown = true;
-	}
+        isBlanketUp = false;
+    }
 
 	void Update() {
 		if (shouldblanketGoDown) {
@@ -35,12 +35,6 @@ public class BlanketCover : MonoBehaviour, IPointerUpHandler,IPointerDownHandler
 			if (current == target) {
 				shouldblanketGoDown = false;
 			}
-		}
-
-		if (getBlanketYPoint() > blanketHeightAsUp) {
-			isBlanketUp = true;
-		} else {
-			isBlanketUp = false;
 		}
 	}
 

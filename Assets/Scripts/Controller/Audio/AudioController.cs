@@ -55,6 +55,7 @@ public class AudioController : MonoBehaviour {
 	public bool isPlaying(TYPE type){
 		return _audioSource [(int)type].isPlaying;
 	}
+
 	#endregion
 
 	#region Buttons

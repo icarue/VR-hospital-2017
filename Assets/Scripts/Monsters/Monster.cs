@@ -44,7 +44,9 @@ public abstract class Monster : MonoBehaviour {
 	protected virtual void playerWins() {
 		onPlayerWin ();
 		gameObject.SetActive(false);
-	}
+        resetMonster();
+
+    }
 
 	protected abstract void setupMonsterToStartAttack ();
     public abstract void resetMonster();

@@ -10,8 +10,9 @@ public class GameController : MonoBehaviour {
 	private GameObject[] monsters;
     [SerializeField]
     private GameObject[] ambients;
+    [Header("Rate of fear increase")]
     [SerializeField]
-	private float RateToIncreaseFear;
+	private float Rate;
     [SerializeField]
     private GameObject lamp;
     float secondsPassed = 0;
@@ -104,7 +105,7 @@ public class GameController : MonoBehaviour {
     void increaseFear()
     {
         secondsPassed += Time.deltaTime;
-        if (secondsPassed > RateToIncreaseFear && 
+        if (secondsPassed > Rate && 
             !lamp.GetComponent<BedSideLight>().isLightOn)
         {
             //Increase camera shake
@@ -120,6 +121,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	void setMonsterActivatedFalse() {
+        //AUDIO
+        AudioController.instance.STOP(TYPE.MONSTER);
 		monsterActivated = false;
 		setTimeUntilNextMonster ();
 	}
@@ -127,7 +130,8 @@ public class GameController : MonoBehaviour {
     //Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
-		return Random.Range (0, max);
+        return 1;// Random.Range (0, max);
+
 	}
     #endregion
 
@@ -136,6 +140,7 @@ public class GameController : MonoBehaviour {
 
     void setAmbientActivatedFalse()
     {
+        AudioController.instance.STOP(TYPE.AMBIENT);
         ambientActivated = false;
     }
 
