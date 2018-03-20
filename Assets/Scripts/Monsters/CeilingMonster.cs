@@ -187,8 +187,6 @@ public class CeilingMonster : Monster {
 
         //Reset Monster position
         transform.position = base.originalPosition;
-        Debug.Log("Set Original Position");
-        Debug.Log(base.originalPosition);
 
         //Set Current stage
 		currentStage = (MonsterStages)0;

@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
 	private GameObject[] monsters;
     [SerializeField]
     private GameObject[] ambients;
-    [Header("Rate of fear increase")]
+    [Header("Fear increase")]
     [SerializeField]
 	private float Rate;
     [SerializeField]
@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour {
     //Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
-        return Random.Range (0, max);
+        return 3;// Random.Range (0, max);
 
 	}
     #endregion
