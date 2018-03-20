@@ -26,6 +26,7 @@ public class BedSideMonster : Monster {
     [Header("Stay Up For")]
     float seconds;
 
+    float currentSeconds;
 
     #region Mono
     private void Awake()
@@ -35,6 +36,7 @@ public class BedSideMonster : Monster {
 
     private void Update()
     {
+        Debug.Log(cameraObject.transform.localEulerAngles.y);
         switch (currentStage)
         {
             case MonsterStages.AudioSetup:
@@ -77,22 +79,24 @@ public class BedSideMonster : Monster {
         transform.position = Vector3.MoveTowards(current, destination, speed * Time.deltaTime);
         if (transform.position == destination)
         {
-            currentStage = MonsterStages.InteractiveMonster;
+            currentStage = up ? MonsterStages.InteractiveMonster : MonsterStages.UserWin;
         }
 
     }
 
     void InterActiveMonster()
     {
-        seconds -= Time.deltaTime;
-        if (seconds < 0)
+        currentSeconds -= Time.deltaTime;
+        if (currentSeconds < 0)
         {
             currentStage = MonsterStages.HideMonster;
         }
-        if((cameraObject.transform.rotation.eulerAngles.y % 360) > 36)
+        float cameraAngle = cameraObject.transform.localEulerAngles.y;
+        if (cameraAngle > 36 && cameraAngle < 95)
         {
             currentStage = MonsterStages.JumpScare;
         }
+        
     }
 
     #endregion
@@ -102,6 +106,7 @@ public class BedSideMonster : Monster {
     {
         currentStage = (MonsterStages)0;
         moveUpDestination = transform.position + new Vector3(0, MoveUpY, 0);
+        currentSeconds = seconds;
         //AUDIO
         AudioController.instance.PLAY(AudioController.instance.AUDIO.UnderTheBed, TYPE.MONSTER);
 
