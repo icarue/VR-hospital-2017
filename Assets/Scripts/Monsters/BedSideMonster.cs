@@ -89,8 +89,7 @@ public class BedSideMonster : Monster {
         {
             currentStage = MonsterStages.HideMonster;
         }
-        //TODO Check if user is looking at monster
-        if(cameraObject.transform.rotation.eulerAngles.y > 36)
+        if((cameraObject.transform.rotation.eulerAngles.y % 360) > 36)
         {
             currentStage = MonsterStages.JumpScare;
         }
