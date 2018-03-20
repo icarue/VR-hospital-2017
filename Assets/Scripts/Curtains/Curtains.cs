@@ -31,7 +31,7 @@ public class Curtains : MonoBehaviour {
     private void OnMouseExit()
     {
 		//AUDIO
-		if (!AudioController.instance.isPlaying(TYPE.UI)){
+		if (!AudioController.instance.isPlaying(TYPE.UI) && isCurtainOpen){
 			AudioController.instance.PLAY(AudioController.instance.AUDIO.CurtainsOpen,TYPE.UI);
 		}
         anim.Play(curtainOpening);

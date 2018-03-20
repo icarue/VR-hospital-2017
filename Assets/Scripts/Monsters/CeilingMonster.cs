@@ -157,6 +157,8 @@ public class CeilingMonster : Monster {
         if (currentTimeUntilWin < 0)
         {
             currentStage = MonsterStages.UserWin;
+            //AUDIO
+            AudioController.instance.PLAY(AudioController.instance.AUDIO.SlidingTile, TYPE.MONSTER);
         }
 
         if (TimeUntilUserLoses < 0)

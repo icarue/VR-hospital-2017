@@ -9,7 +9,7 @@ public class RunningHallway : Ambient
     {
         RandomWaitForSeconds = Random.Range(5, 8);
         //AUDIO
-        AudioController.instance.PLAY(AudioController.instance.AUDIO.RunningOutside, TYPE.AMBIENT, 0.1f);
+        AudioController.instance.PLAY(AudioController.instance.AUDIO.RunningOutside, TYPE.AMBIENT, 0.3f);
         StartCoroutine("WaitAndDeactivate");
     }
 
