@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour {
     //Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
-        return 3;// Random.Range (0, max);
+        return Random.Range (0, max);
 
 	}
     #endregion
