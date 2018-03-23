@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] ambients;
 	[SerializeField]
-	private int[, ] waveStave; // waveStave [waveNum, monster#, amb#]
+	private float[, ] waveStave; // waveStave [waveNum, monster#, amb#]
 	[Header("Fear increase")]
 	[SerializeField]
 	private float Rate;
@@ -139,29 +139,37 @@ public class GameController : MonoBehaviour {
 	void randomizeTimings() {
 		waveNum = 0;
 		secondsPassedInWave = 0;
-		// Randomly assigns timings to monst/ambs
+
 		int actorsSize = monsters.Length + ambients.Length;
-		waveStave = new int [maxWave, actorsSize];
-		for (int i = 0; i < actorsSize; i++) {
-			for (int j = 0; j < maxWave; j++) {
-				if (i < monsters.Length)
-					waveStave [j, i] = -1;
-				else
-					waveStave [j, i] = Random.Range (-4, 13);
+		waveStave = new float [maxWave, actorsSize];
+		for (int i = 0; i < maxWave; i++) {
+			for (int j = 0; j < actorsSize; j++) {
+				if (j < monsters.Length)
+					waveStave [i, j] = -1;
+				else {
+					waveStave [i, j] = Random.value * 20 - 4;
+				}
 			}
+			waveStave [i, Random.Range (monsters.Length, actorsSize)] = 3;
 		}
 
+		// Summons monsters. First 1, then 2 for each subsequent wave
 		for (int i = 0; i < maxWave; i++) {
 			if (i == 0) {
-				waveStave [i, Random.Range (0, monsters.Length)] = Random.Range (0, 5);
+				waveStave [i, Random.Range (0, monsters.Length)] = 10;
 			} else {
-				int firstNum = Random.Range (0, monsters.Length);
-				int secNum = Random.Range (0, monsters.Length);
-				while (firstNum == secNum) {
-					secNum = Random.Range (0, monsters.Length);
+				int firstMon = Random.Range (0, monsters.Length);
+				int secMon = Random.Range (0, monsters.Length);
+				while (firstMon == secMon) {
+					secMon = Random.Range (0, monsters.Length);
 				}
-				waveStave [i, firstNum] = Random.Range (4, 10);
-				waveStave [i, secNum] = Random.Range (0, 6);
+				if (i <= 5) {
+					waveStave [i, firstMon] = (Random.value + 1) * 5/i;
+					waveStave [i, secMon] = (Random.value + 1) * 5/i + 1;
+				} else {
+					waveStave [i, firstMon] = (Random.value + 1);
+					waveStave [i, secMon] = (Random.value + 3);
+				}
 			}
 		}
 
@@ -169,7 +177,7 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < maxWave; i++) {
 			debugStave += "{";
 			for (int j = 0; j < actorsSize; j++) {
-				debugStave += waveStave [i, j] + ", ";
+				debugStave += waveStave [i, j].ToString("n1") + ", ";
 			}
 			debugStave += "}" + System.Environment.NewLine;
 		}
