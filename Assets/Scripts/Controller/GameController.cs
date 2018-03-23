@@ -153,13 +153,35 @@ public class GameController : MonoBehaviour {
 		secondsPassedInWave = 0;
 		// Randomly assigns timings to monst/ambs
 		int actorsSize = monsters.Length + ambients.Length;
-		string debugStave = "";
 		waveStave = new int [maxWave, actorsSize];
 		for (int i = 0; i < actorsSize; i++) {
-			debugStave += "{";
 			for (int j = 0; j < maxWave; j++) {
-				waveStave [j, i] = Random.Range (-4, 15);
-				debugStave += waveStave [j, i] + " ";
+				if (i < monsters.Length)
+					waveStave [j, i] = -1;
+				else
+					waveStave [j, i] = Random.Range (-4, 13);
+			}
+		}
+
+		for (int i = 0; i < maxWave; i++) {
+			if (i == 0) {
+				waveStave [i, Random.Range (0, monsters.Length)] = Random.Range (0, 5);
+			} else {
+				int firstNum = Random.Range (0, monsters.Length);
+				int secNum = Random.Range (0, monsters.Length);
+				while (firstNum == secNum) {
+					secNum = Random.Range (0, monsters.Length);
+				}
+				waveStave [i, firstNum] = Random.Range (4, 10);
+				waveStave [i, secNum] = Random.Range (0, 6);
+			}
+		}
+
+		string debugStave = "";
+		for (int i = 0; i < maxWave; i++) {
+			debugStave += "{";
+			for (int j = 0; j < actorsSize; j++) {
+				debugStave += waveStave [i, j] + ", ";
 			}
 			debugStave += "}" + System.Environment.NewLine;
 		}
@@ -202,6 +224,14 @@ public class GameController : MonoBehaviour {
 		int max = monsters.Length;
 		return Random.Range (0, max);
 	}
+	void resetAllMonsters() {
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].GetComponent<Monster>().resetMonster();
+			monsters[i].SetActive(false);
+		}
+	}
+
 	#endregion
 
 	#region Ambient
@@ -254,12 +284,7 @@ public class GameController : MonoBehaviour {
 	{
 		setMonsterActivatedFalse();
 		setVariables();
-
-		for (int i = 0; i < monsters.Length; i++)
-		{
-			monsters[i].GetComponent<Monster>().resetMonster();
-			monsters[i].SetActive(false);
-		}
+		resetAllMonsters ();
 	}
 
 	private void setMonsterGameObjectActive(bool set)
