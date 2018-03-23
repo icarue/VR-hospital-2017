@@ -8,21 +8,29 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject[] monsters;
-    [SerializeField]
-    private GameObject[] ambients;
-    [Header("Fear increase")]
-    [SerializeField]
+	[SerializeField]
+	private GameObject[] ambients;
+	[SerializeField]
+	private int[, ] waveStave; // waveStave [waveNum, monster#, amb#]
+	[Header("Fear increase")]
+	[SerializeField]
+	private GameObject[] gameObjectsToActiveOnPlay;
+	[SerializeField]
 	private float Rate;
-    [SerializeField]
-    private GameObject lamp;
-    float secondsPassed = 0;
+	[SerializeField]
+	private GameObject lamp;
 
+	float secondsPassedInWave = 0;
+	float fearSecondsPassed = 0;
 	float timerUntilNextMonster;
 	bool monsterActivated = false;
-    bool ambientActivated = false;
+	bool ambientActivated = false;
+	int waveNum = 0;
+	[SerializeField]
+	int maxWave = 3;
 
-    #region MonoDevelop
-    public void Awake()
+	#region MonoDevelop
+	public void Awake()
 	{
 		if(instance == null)
 		{
@@ -34,127 +42,174 @@ public class GameController : MonoBehaviour {
 		}
 		DontDestroyOnLoad(this.gameObject);
 
-        InitGame();
+		InitGame();
 	}
 
-	
-	
+
+
 	// Update is called once per frame
 	void Update () {
-        //If it's anything other than in game - nothing will happen
+		//If it's anything other than in game - nothing will happen
 		if (GameStatus.instance.currentStatus != Status.InGame) { return; }
 
-		if (!monsterActivated) {
-			timerUntilNextMonster -= Time.deltaTime;
+		if (waveNum < maxWave) {
+			// While game is active
+			secondsPassedInWave += Time.deltaTime;
+			int actorsSize = monsters.Length + ambients.Length;
+			for (int i = 0; i < actorsSize; i++) {
+				if (waveStave [waveNum, i] >= 0) {
+					// If the thingy is larger than 0, this monst/amb is not finished yet.
 
-            if (timerUntilNextMonster < 0)
-            {
-                monsterActivated = true;
-                int index = selectMonster();
-                monsters[index].GetComponent<Monster>().launchAttack();
-            }
+					if (waveStave [waveNum, i] <= secondsPassedInWave) {
+						if (i < monsters.Length) monsterActivated = true;
+						Debug.Log ("Spawned #" + i);
 
-            //Ambient shows up while waiting for monster
-            if (!ambientActivated)
-            {
-                ambientActivated = true;
-                int index = selectAmbient();
-                ambients[index].GetComponent<Ambient>().StartAmb();
-            }
-        } else
-        {
-            increaseFear();   
-        } 
+						// If this monst/amb is ready to go, disable it's timer and launch it
+						waveStave [waveNum, i] = -1;
+
+						if (i >= monsters.Length) {
+							ambients [i - monsters.Length].GetComponent<Ambient> ().StartAmb ();
+						} else {
+							monsters [i].GetComponent<Monster> ().launchAttack ();
+						}
+
+					}
+				}
+			}
+			if (monsterActivated) {
+				increaseFear ();
+			} else {
+			}
+		} else {
+			EndGame ();
+		}
+
 	}
 
-    #endregion
+	#endregion
 
-    #region setup
+	#region setup
 
-    // Use this for initialization
-    void InitGame()
-    {
-        setVariables();
-        setupDelegates();
-    }
+	// Use this for initialization
+	void InitGame()
+	{
+		setVariables();
+		setupDelegates();
+		activateGameObjects();
 
-    void setVariables()
-    {
-        timerUntilNextMonster = Random.Range(5, 10);
-        setMonsterGameObjectActive(false);
-    }
+		// Randomly assigns timings to monst/ambs
+		int actorsSize = monsters.Length + ambients.Length;
+		string debugStave = "";
+		waveStave = new int [maxWave, actorsSize];
+		for (int i = 0; i < actorsSize; i++) {
+			debugStave += "{";
+			for (int j = 0; j < maxWave; j++) {
+				waveStave [j, i] = Random.Range (-4, 15);
+				debugStave += waveStave [j, i] + " ";
+			}
+			debugStave += "}" + System.Environment.NewLine;
+		}
+		Debug.Log (debugStave);
+	}
 
-    void setupDelegates()
-    {
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            monsters[i].GetComponent<Monster>().onPlayerWin += setMonsterActivatedFalse;
-        }
+	void setVariables()
+	{
+		timerUntilNextMonster = Random.Range(5, 10);
+		setMonsterGameObjectActive(false);
+	}
 
-        for (int i = 0; i < ambients.Length; i++)
-        {
-            ambients[i].GetComponent<Ambient>().onEnd += setAmbientActivatedFalse;
-        }
-    }
+	void setupDelegates()
+	{
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].GetComponent<Monster>().onPlayerWin += setMonsterActivatedFalse;
+		}
 
+		for (int i = 0; i < ambients.Length; i++)
+		{
+			ambients[i].GetComponent<Ambient>().onEnd += setAmbientActivatedFalse;
+		}
+	}
 
-    #endregion
+	//Any Deactivated gameobjects will be activated
+	void activateGameObjects()
+	{
+		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++)
+		{
+			gameObjectsToActiveOnPlay[i].SetActive(true);
+		}
+	}
 
-    #region Fear
+	#endregion
 
-    void increaseFear()
-    {
-        secondsPassed += Time.deltaTime;
-        if (secondsPassed > Rate && 
-            !lamp.GetComponent<BedSideLight>().isLightOn)
-        {
-            //Increase camera shake
-            GetComponent<FearShakeController>().increaseCameraShake();
-            secondsPassed = 0;
-        }
-    }
-    #endregion
+	#region Fear
 
-    #region Monsters
-    void setTimeUntilNextMonster() {
+	void increaseFear()
+	{
+		fearSecondsPassed += Time.deltaTime;
+		if (fearSecondsPassed > Rate && 
+			!lamp.GetComponent<BedSideLight>().isLightOn)
+		{
+			//Increase camera shake
+			GetComponent<FearShakeController>().increaseCameraShake();
+			fearSecondsPassed = 0;
+		}
+	}
+	#endregion
+
+	#region Monsters
+	void setTimeUntilNextMonster() {
 		timerUntilNextMonster = Random.Range (5, 10);
 	}
 
-	void setMonsterActivatedFalse() {
-        //AUDIO
-        AudioController.instance.STOP(TYPE.MONSTER);
-		monsterActivated = false;
-		setTimeUntilNextMonster ();
+	void waveFinished() {
+
 	}
 
-    //Randomizer that chooses the monster
+	void setMonsterActivatedFalse() {
+		//AUDIO
+		AudioController.instance.STOP(TYPE.MONSTER);
+		bool waveFinished = true; 
+		for (int i = 0; i < monsters.Length; i++) {
+			if (waveStave [waveNum, i] <= 0) {
+				waveFinished = false;
+				break;
+			}
+		}
+		if (waveFinished) {
+			// Continue to next wave
+			secondsPassedInWave = 0;
+			waveNum++;
+			monsterActivated = false;
+		}
+		//		setTimeUntilNextMonster ();
+	}
+
+	//Randomizer that chooses the monster
 	int selectMonster() {
 		int max = monsters.Length;
-        return  Random.Range (0, max);
-
+		return Random.Range (0, max);
 	}
-    #endregion
+	#endregion
 
-    #region Ambient
-
-
-    void setAmbientActivatedFalse()
-    {
-        AudioController.instance.STOP(TYPE.AMBIENT);
-        ambientActivated = false;
-    }
-
-    int selectAmbient()
-    {
-        int max = ambients.Length;
-        return Random.Range(0, max);
-    }
-
-    #endregion
+	#region Ambient
 
 
-    #region Game States
-    public void StartGame() {
+	void setAmbientActivatedFalse()
+	{
+		AudioController.instance.STOP(TYPE.AMBIENT);
+		ambientActivated = false;
+	}
+
+	int selectAmbient()
+	{
+		int max = ambients.Length;
+		return Random.Range(0, max);
+	}
+
+	#endregion
+	#region Game States
+	public void StartGame() {
 		//Set State
 		GameStatus.instance.currentStatus = Status.InGame;
 		UserInterfaceController.instance.PlayGame ();
@@ -165,42 +220,43 @@ public class GameController : MonoBehaviour {
 	public void EndGame() {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
-        UserInterfaceController.instance.GameOver();
+		UserInterfaceController.instance.GameOver();
 		//AUDIO
 		AudioController.instance.STOPALL();
 	}
 
 	public void ResetScene() {
-        // Game Controller
-        reset();
-        //Fear Shake Controller
-        GetComponent<FearShakeController>().resetShake();
-        //Game Status
-        GameStatus.instance.currentStatus = Status.MainMenu;
-        //UI Controller
-        UserInterfaceController.instance.setupUI();
-        //Timer Controller
-        GetComponent<TimerController>().resetTime();
+		// Game Controller
+		reset();
+		//Fear Shake Controller
+		GetComponent<FearShakeController>().resetShake();
+		//Game Status
+		GameStatus.instance.currentStatus = Status.MainMenu;
+		//UI Controller
+		UserInterfaceController.instance.setupUI();
+		//Timer Controller
+		GetComponent<TimerController>().resetTime();
 	}
 
-    private void reset()
-    {
-        setMonsterActivatedFalse();
-        setVariables();
+	private void reset()
+	{
+		setMonsterActivatedFalse();
+		setVariables();
 
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            monsters[i].GetComponent<Monster>().resetMonster();
-            monsters[i].SetActive(false);
-        }
-    }
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].GetComponent<Monster>().resetMonster();
+			monsters[i].SetActive(false);
+		}
+	}
 
-    private void setMonsterGameObjectActive(bool set)
-    {
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            monsters[i].SetActive(set);
-        }
-    }
-    #endregion
+	private void setMonsterGameObjectActive(bool set)
+	{
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].SetActive(set);
+		}
+	}
+	#endregion
 }
+
