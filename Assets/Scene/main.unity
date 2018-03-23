@@ -3260,21 +3260,21 @@ MonoBehaviour:
   DoorCreak: {fileID: 8300000, guid: a34abad56754742bf9447c0974861a7a, type: 3}
   DoorClose: {fileID: 8300000, guid: 43583a20f853f42d2bd07dfe51051730, type: 3}
   DoorCloseFail: {fileID: 8300000, guid: 49edd1e1887f1452bb2c268e1574fe7d, type: 3}
-  StaticTV: {fileID: 8300000, guid: 80df6d3ad5d564f748b8f59ad7654b04, type: 3}
-  AlarmClock: {fileID: 8300000, guid: 888503b5f0e2445a7ab287e90928d920, type: 3}
-  BrokenLight: {fileID: 8300000, guid: d8613ddc8b8834177b98b16cee0510ae, type: 3}
+  StaticTV: {fileID: 8300000, guid: 87934e33c45944e9ea7dcca95c40f077, type: 3}
+  AlarmClock: {fileID: 8300000, guid: 2c2f58f2f375847e0a2f96c1b50e42a6, type: 3}
+  BrokenLight: {fileID: 8300000, guid: d3c1ce386319d4300adb6ce9cd86c979, type: 3}
   RunningOutside: {fileID: 8300000, guid: 735c239a3034d99428cea8367b3ffd75, type: 3}
-  RunningAttic: {fileID: 8300000, guid: c99ab44cd290c6b40a1f20d8e25c2bdd, type: 3}
-  PlayingInWater: {fileID: 8300000, guid: 8cf08e5a8cf6346a89e3f636181c39f2, type: 3}
+  RunningAttic: {fileID: 8300000, guid: 03069965204d14e54b862c2521098281, type: 3}
+  PlayingInWater: {fileID: 8300000, guid: 4aecf1c95464f4a2a837dc85d1cd47aa, type: 3}
   SinkningInWater: {fileID: 8300000, guid: b2ad9dd8fbd1449e68ac5a34be6d2965, type: 3}
   UnderTheBed: {fileID: 8300000, guid: 307912c4f7b1f41ce8d21e2eb7bf7a92, type: 3}
-  SlidingTile: {fileID: 8300000, guid: e61b2c15a4567c045806479517c51cc6, type: 3}
+  SlidingTile: {fileID: 8300000, guid: 18cc76fbe07604805a8591089874df94, type: 3}
   CurtainsOpen: {fileID: 8300000, guid: dcce08863ecb94525b80fa3e838b481b, type: 3}
   CurtainsClose: {fileID: 8300000, guid: f32b0573e842d4944bf942a8e9665980, type: 3}
   SwitchOnLight: {fileID: 8300000, guid: 277f6e609801046a88d297293e43dcee, type: 3}
   SwitchOffLight: {fileID: 8300000, guid: d4999c729ffc34c7b9ad7b2ec74a95d1, type: 3}
   ButtonClicks: {fileID: 8300000, guid: 6dc1852323a9f4a2191d2c4fbc9a30f8, type: 3}
-  StartGame: {fileID: 8300000, guid: 6cfcf093ddc654850909ec632cfc026e, type: 3}
+  StartGame: {fileID: 8300000, guid: 0404497cc13824d71a5fcb141b0e4d06, type: 3}
 --- !u!82 &1046931279
 AudioSource:
   m_ObjectHideFlags: 0
