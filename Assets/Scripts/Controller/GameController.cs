@@ -233,6 +233,10 @@ public class GameController : MonoBehaviour {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
 		UserInterfaceController.instance.GameOver();
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].SetActive(false);
+		}
 		//AUDIO
 		AudioController.instance.STOPALL();
 	}
