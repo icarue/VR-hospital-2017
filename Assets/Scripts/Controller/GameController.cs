@@ -250,7 +250,7 @@ public class GameController : MonoBehaviour {
 	public void EndGame(bool didWin) {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
-		UserInterfaceController.instance.GameOver();
+		UserInterfaceController.instance.GameOver(didWin);
 		for (int i = 0; i < monsters.Length; i++)
 		{
 			monsters[i].SetActive(false);
