@@ -14,8 +14,6 @@ public class GameController : MonoBehaviour {
 	private int[, ] waveStave; // waveStave [waveNum, monster#, amb#]
 	[Header("Fear increase")]
 	[SerializeField]
-	private GameObject[] gameObjectsToActiveOnPlay;
-	[SerializeField]
 	private float Rate;
 	[SerializeField]
 	private GameObject lamp;
@@ -80,10 +78,10 @@ public class GameController : MonoBehaviour {
 			}
 			if (monsterActivated) {
 				increaseFear ();
-			} else {
-			}
+			} 
 		} else {
-			EndGame ();
+			//Win State
+			EndGame (true);
 		}
 
 	}
@@ -97,7 +95,6 @@ public class GameController : MonoBehaviour {
 	{
 		setVariables();
 		setupDelegates();
-		activateGameObjects();
 	}
 
 	void setVariables()
@@ -117,15 +114,6 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < ambients.Length; i++)
 		{
 			ambients[i].GetComponent<Ambient>().onEnd += setAmbientActivatedFalse;
-		}
-	}
-
-	//Any Deactivated gameobjects will be activated
-	void activateGameObjects()
-	{
-		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++)
-		{
-			gameObjectsToActiveOnPlay[i].SetActive(true);
 		}
 	}
 
@@ -256,13 +244,13 @@ public class GameController : MonoBehaviour {
 		GameStatus.instance.currentStatus = Status.InGame;
 		UserInterfaceController.instance.PlayGame ();
 		//AUDIO
-		AudioController.instance.PLAY(AudioController.instance.AUDIO.StartGame,TYPE.UI,1.0f);
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.StartGame,TYPE.UI);
 	}
 
-	public void EndGame() {
+	public void EndGame(bool didWin) {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
-		UserInterfaceController.instance.GameOver();
+		UserInterfaceController.instance.GameOver(didWin);
 		//AUDIO
 		AudioController.instance.STOPALL();
 	}

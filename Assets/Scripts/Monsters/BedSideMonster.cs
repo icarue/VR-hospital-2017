@@ -36,7 +36,6 @@ public class BedSideMonster : Monster {
 
     private void Update()
     {
-        Debug.Log(cameraObject.transform.localEulerAngles.y);
         switch (currentStage)
         {
             case MonsterStages.AudioSetup:

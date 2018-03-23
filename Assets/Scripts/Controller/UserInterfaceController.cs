@@ -17,6 +17,12 @@ public class UserInterfaceController : MonoBehaviour {
 	[SerializeField]
 	GameObject GameOverPanel;
 
+	[SerializeField]
+	GameObject GameOverWinTitle;
+	[SerializeField]
+	GameObject GameOverLoseTitle;
+	bool didWin;
+
 	public static UserInterfaceController instance;
 
 	public void Awake()
@@ -46,8 +52,9 @@ public class UserInterfaceController : MonoBehaviour {
         setupUI();
     }
 
-	public void GameOver() {
+	public void GameOver(bool win) {
         setupUI();
+		didWin = win;
         GameOverScreen.SetActive(true);
         StartCoroutine ("SetPanelAfter");
 	}
@@ -56,6 +63,10 @@ public class UserInterfaceController : MonoBehaviour {
     {
         yield return new WaitForSeconds(2);
         GameOverPanel.SetActive(true);
+
+		GameOverWinTitle.SetActive (didWin);
+		GameOverLoseTitle.SetActive (!didWin);
+
     }
 
     void disableGameOver()
