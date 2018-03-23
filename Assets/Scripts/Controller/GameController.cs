@@ -54,7 +54,9 @@ public class GameController : MonoBehaviour {
 
 		if (waveNum < maxWave) {
 			// While game is active
-			secondsPassedInWave += Time.deltaTime;
+			bool lampOn = lamp.GetComponent<BedSideLight>().isLightOn;
+
+			secondsPassedInWave += Time.deltaTime * (lampOn ? 1.3f : 1.0f);
 			int actorsSize = monsters.Length + ambients.Length;
 			for (int i = 0; i < actorsSize; i++) {
 				if (waveStave [waveNum, i] >= 0) {
@@ -96,26 +98,13 @@ public class GameController : MonoBehaviour {
 		setVariables();
 		setupDelegates();
 		activateGameObjects();
-
-		// Randomly assigns timings to monst/ambs
-		int actorsSize = monsters.Length + ambients.Length;
-		string debugStave = "";
-		waveStave = new int [maxWave, actorsSize];
-		for (int i = 0; i < actorsSize; i++) {
-			debugStave += "{";
-			for (int j = 0; j < maxWave; j++) {
-				waveStave [j, i] = Random.Range (-4, 15);
-				debugStave += waveStave [j, i] + " ";
-			}
-			debugStave += "}" + System.Environment.NewLine;
-		}
-		Debug.Log (debugStave);
 	}
 
 	void setVariables()
 	{
 		timerUntilNextMonster = Random.Range(5, 10);
 		setMonsterGameObjectActive(false);
+		randomizeTimings ();
 	}
 
 	void setupDelegates()
@@ -157,6 +146,28 @@ public class GameController : MonoBehaviour {
 	}
 	#endregion
 
+	#region waveController
+
+	void randomizeTimings() {
+		waveNum = 0;
+		secondsPassedInWave = 0;
+		// Randomly assigns timings to monst/ambs
+		int actorsSize = monsters.Length + ambients.Length;
+		string debugStave = "";
+		waveStave = new int [maxWave, actorsSize];
+		for (int i = 0; i < actorsSize; i++) {
+			debugStave += "{";
+			for (int j = 0; j < maxWave; j++) {
+				waveStave [j, i] = Random.Range (-4, 15);
+				debugStave += waveStave [j, i] + " ";
+			}
+			debugStave += "}" + System.Environment.NewLine;
+		}
+		Debug.Log (debugStave);
+	}
+
+	#endregion
+
 	#region Monsters
 	void setTimeUntilNextMonster() {
 		timerUntilNextMonster = Random.Range (5, 10);
@@ -171,13 +182,14 @@ public class GameController : MonoBehaviour {
 		AudioController.instance.STOP(TYPE.MONSTER);
 		bool waveFinished = true; 
 		for (int i = 0; i < monsters.Length; i++) {
-			if (waveStave [waveNum, i] <= 0) {
+			if (waveStave [waveNum, i] >= 0) {
 				waveFinished = false;
 				break;
 			}
 		}
 		if (waveFinished) {
 			// Continue to next wave
+			Debug.Log("Wave" + waveNum +"completed!");
 			secondsPassedInWave = 0;
 			waveNum++;
 			monsterActivated = false;
