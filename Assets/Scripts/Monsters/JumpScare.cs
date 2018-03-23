@@ -77,7 +77,7 @@ public class JumpScare : MonoBehaviour {
 		yield return new WaitForSeconds (1);
         shaker.StartFadeOut(1f);
         resetScene();
-        GameController.instance.EndGame ();
+        GameController.instance.EndGame (false);
 	}
 
     void shakeEnemy()

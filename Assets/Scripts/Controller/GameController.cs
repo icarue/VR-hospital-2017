@@ -14,8 +14,6 @@ public class GameController : MonoBehaviour {
 	private int[, ] waveStave; // waveStave [waveNum, monster#, amb#]
 	[Header("Fear increase")]
 	[SerializeField]
-	private GameObject[] gameObjectsToActiveOnPlay;
-	[SerializeField]
 	private float Rate;
 	[SerializeField]
 	private GameObject lamp;
@@ -80,10 +78,10 @@ public class GameController : MonoBehaviour {
 			}
 			if (monsterActivated) {
 				increaseFear ();
-			} else {
 			}
 		} else {
-			EndGame ();
+			//Win State
+			EndGame (true);
 		}
 
 	}
@@ -97,7 +95,6 @@ public class GameController : MonoBehaviour {
 	{
 		setVariables();
 		setupDelegates();
-		activateGameObjects();
 	}
 
 	void setVariables()
@@ -120,15 +117,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	//Any Deactivated gameobjects will be activated
-	void activateGameObjects()
-	{
-		for (int i = 0; i < gameObjectsToActiveOnPlay.Length; i++)
-		{
-			gameObjectsToActiveOnPlay[i].SetActive(true);
-		}
-	}
-
 	#endregion
 
 	#region Fear
@@ -136,7 +124,7 @@ public class GameController : MonoBehaviour {
 	void increaseFear()
 	{
 		fearSecondsPassed += Time.deltaTime;
-		if (fearSecondsPassed > Rate && 
+		if (fearSecondsPassed > Rate &&
 			!lamp.GetComponent<BedSideLight>().isLightOn)
 		{
 			//Increase camera shake
@@ -153,13 +141,35 @@ public class GameController : MonoBehaviour {
 		secondsPassedInWave = 0;
 		// Randomly assigns timings to monst/ambs
 		int actorsSize = monsters.Length + ambients.Length;
-		string debugStave = "";
 		waveStave = new int [maxWave, actorsSize];
 		for (int i = 0; i < actorsSize; i++) {
-			debugStave += "{";
 			for (int j = 0; j < maxWave; j++) {
-				waveStave [j, i] = Random.Range (-4, 15);
-				debugStave += waveStave [j, i] + " ";
+				if (i < monsters.Length)
+					waveStave [j, i] = -1;
+				else
+					waveStave [j, i] = Random.Range (-4, 13);
+			}
+		}
+
+		for (int i = 0; i < maxWave; i++) {
+			if (i == 0) {
+				waveStave [i, Random.Range (0, monsters.Length)] = Random.Range (0, 5);
+			} else {
+				int firstNum = Random.Range (0, monsters.Length);
+				int secNum = Random.Range (0, monsters.Length);
+				while (firstNum == secNum) {
+					secNum = Random.Range (0, monsters.Length);
+				}
+				waveStave [i, firstNum] = Random.Range (4, 10);
+				waveStave [i, secNum] = Random.Range (0, 6);
+			}
+		}
+
+		string debugStave = "";
+		for (int i = 0; i < maxWave; i++) {
+			debugStave += "{";
+			for (int j = 0; j < actorsSize; j++) {
+				debugStave += waveStave [i, j] + ", ";
 			}
 			debugStave += "}" + System.Environment.NewLine;
 		}
@@ -180,7 +190,7 @@ public class GameController : MonoBehaviour {
 	void setMonsterActivatedFalse() {
 		//AUDIO
 		AudioController.instance.STOP(TYPE.MONSTER);
-		bool waveFinished = true; 
+		bool waveFinished = true;
 		for (int i = 0; i < monsters.Length; i++) {
 			if (waveStave [waveNum, i] >= 0) {
 				waveFinished = false;
@@ -202,6 +212,14 @@ public class GameController : MonoBehaviour {
 		int max = monsters.Length;
 		return Random.Range (0, max);
 	}
+	void resetAllMonsters() {
+		for (int i = 0; i < monsters.Length; i++)
+		{
+			monsters[i].GetComponent<Monster>().resetMonster();
+			monsters[i].SetActive(false);
+		}
+	}
+
 	#endregion
 
 	#region Ambient
@@ -226,10 +244,10 @@ public class GameController : MonoBehaviour {
 		GameStatus.instance.currentStatus = Status.InGame;
 		UserInterfaceController.instance.PlayGame ();
 		//AUDIO
-		AudioController.instance.PLAY(AudioController.instance.AUDIO.StartGame,TYPE.UI,1.0f);
+		AudioController.instance.PLAY(AudioController.instance.AUDIO.StartGame,TYPE.UI);
 	}
 
-	public void EndGame() {
+	public void EndGame(bool didWin) {
 		//Set the State
 		GameStatus.instance.currentStatus = Status.EndGame;
 		UserInterfaceController.instance.GameOver();
@@ -258,12 +276,7 @@ public class GameController : MonoBehaviour {
 	{
 		setMonsterActivatedFalse();
 		setVariables();
-
-		for (int i = 0; i < monsters.Length; i++)
-		{
-			monsters[i].GetComponent<Monster>().resetMonster();
-			monsters[i].SetActive(false);
-		}
+		resetAllMonsters ();
 	}
 
 	private void setMonsterGameObjectActive(bool set)
@@ -275,4 +288,3 @@ public class GameController : MonoBehaviour {
 	}
 	#endregion
 }
-
