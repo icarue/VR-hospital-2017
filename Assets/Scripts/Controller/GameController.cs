@@ -143,15 +143,30 @@ public class GameController : MonoBehaviour {
 		int actorsSize = monsters.Length + ambients.Length;
 		waveStave = new float [maxWave, actorsSize];
 		for (int i = 0; i < maxWave; i++) {
+			int[] randArr = new int [ambients.Length];
+			for (int a = 0; a < randArr.Length; a++){
+				randArr[a] = a;
+			}
+			for (int a = 0; a < randArr.Length; a++){
+				int newIndex = Random.Range (0, randArr.Length);
+				int temp = randArr [newIndex];
+				randArr [newIndex] = randArr [a];
+				randArr [a] = temp;
+			}
+
 			for (int j = 0; j < actorsSize; j++) {
-				if (j < monsters.Length)
+				if (j < monsters.Length) {
+					// This is a monster
 					waveStave [i, j] = -1;
-				else {
-					waveStave [i, j] = Random.value * 20 - 4;
+				} else {
+					// This is an ambient
+					waveStave [i, j] = Random.value * 5 + (5 * randArr [j-monsters.Length]);
 				}
 			}
-			waveStave [i, Random.Range (monsters.Length, actorsSize)] = 3;
+//			waveStave [i, Random.Range (monsters.Length, actorsSize)] = 3;
 		}
+		// Ambient in the first 5 secs
+		// each ambient space about 5 secs apart
 
 		// Summons monsters. First 1, then 2 for each subsequent wave
 		for (int i = 0; i < maxWave; i++) {
