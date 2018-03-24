@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour {
 					waveStave [i, j] = -1;
 				} else {
 					// This is an ambient
-					waveStave [i, j] = Random.value * 5 + (5 * randArr [j-monsters.Length]);
+					waveStave [i, j] = Random.value * 2 + (5 * randArr [j-monsters.Length]) + 3;
 				}
 			}
 //			waveStave [i, Random.Range (monsters.Length, actorsSize)] = 3;
